@@ -1,0 +1,28 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+        <script src="https://kit.fontawesome.com/cf40b44f14.js" crossorigin="anonymous"></script>
+		<title>{title}</title>
+		<ViewTransitions />
+	</head>
+    <body>
+        <main>
+            <div class="h-screen flex flex-col">
+                <slot />
+            </div>
+        </main>
+    </body>
+</html>

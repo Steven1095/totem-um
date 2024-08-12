@@ -1,0 +1,80 @@
+---
+import MainLayouts from './components/Layouts/MainLayouts.astro';
+import Slider from './components/Slider.astro';
+---
+
+<MainLayouts title = "Dependencias - UManizales Totem">
+    <!-- Columna de Dependencias -->
+    <div class="flex flex-1">
+        <div class="w-full relative bg-white">
+            <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('../../public/img/titulo_pagina.png');">            
+                <div class="grid grid-cols-2 gap-2">
+                    <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Dependencias</h2>
+                    <a href="./" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><i class="fa-solid fa-arrow-left"></i></a>
+                  </div>
+                <hr class="bg-botones h-3 w-2/3 -ml-4">
+            </div>
+            <!-- Párrafo centrado -->
+            <div class="flex items-center justify-center h-full">    
+                <div class="grid grid-cols-1 w-10/12 mt-38">
+                    <p class="text-4xl bg-gray-100 p-5" style="z-index: 1;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."</p>           
+                    <div class="mt-10">
+                        <div class="flex max-h-[800px] w-full flex-col overflow-y-scroll">
+                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100">
+                                <div class="flex h-24 w-24 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
+                                    <span class="tag w-full text-center text-6xl font-medium text-gray-700 group-hover:text-green-900">A</span>
+                                </div>
+                                <div class="flex flex-col items-start justify-between font-light text-gray-600">
+                                    <p class="text-5xl">Text</p>
+                                    <span class="text-4xl font-light text-gray-400">just start writing with plain text</span>
+                                </div>
+                            </button>
+                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100">
+                                <div class="flex h-24 w-24 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
+                                    <span class="tag w-full text-center text-6xl font-medium text-gray-700 group-hover:text-green-900">
+                                    <svg class="mx-auto h-6 w-6" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    </span>
+                                </div>
+                                <div class="flex flex-col items-start justify-between font-light text-gray-600">
+                                    <p class="text-5xl">Checklist</p>
+                                    <span class="text-4xl font-light text-gray-400">create a to-do or checklist</span>
+                                </div>
+                            </button>
+                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100">
+                                <div class="flex h-24 w-24 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
+                                    <span class="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900"> H1 </span>
+                                </div>
+                                <div class="flex flex-col items-start justify-between font-light text-gray-600">
+                                    <p class="text-5xl">Heading 1</p>
+                                    <span class="text-4xl font-light text-gray-400">Big section heading</span>
+                                </div>
+                            </button>
+                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100">
+                                <div class="flex h-24 w-24 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
+                                    <span class="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900"> H2 </span>
+                                </div>
+                                <div class="flex flex-col items-start justify-between font-light text-gray-600">
+                                    <p class="text-5xl">Heading 2</p>
+                                    <span class="text-4xl font-light text-gray-400">Medium section heading</span>
+                                </div>
+                            </button>
+                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100">
+                                <div class="flex h-24 w-24 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
+                                    <span class="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900"> H3 </span>
+                                </div>
+                                <div class="flex flex-col items-start justify-between font-light text-gray-600">
+                                    <p class="text-5xl">Heading 3</p>
+                                    <span class="text-4xl font-light text-gray-400">small section heading</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <!-- Slider -->
+     <Slider />
+</MainLayouts>

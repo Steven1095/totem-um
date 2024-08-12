@@ -1,23 +1,10 @@
 ---
+import MainLayouts from './components/Layouts/MainLayouts.astro';
 import Panel from './components/Panel.astro';
 import Slider from './components/Slider.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<!-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js" defer></script> -->
-		<title>Totem - UManizales</title>
-	</head>
-	<body>
-		<main>
-			<div class="h-screen flex flex-col">
-				<Panel />
-				<Slider />			
-			</div>
-		</main>
-	</body>
-</html>
+<MainLayouts title = "Home - UManizales Totem">
+	<Panel />
+	<Slider />		
+</MainLayouts>
