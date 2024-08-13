@@ -26,19 +26,19 @@
     </div>
     <!-- Flecha Izquierda -->
     <button @click="activeSlide = activeSlide === 0 ? slides.length - 1 : activeSlide - 1"
-    class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-slider-nav text-white p-6 rounded-full text-3xl ml-10">
+    class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-botones text-white p-6 rounded-full text-3xl ml-10">
     &#10094; <!-- Código HTML para la flecha izquierda -->
     </button>
     <!-- Flecha Derecha -->
     <button @click="activeSlide = activeSlide === slides.length - 1 ? 0 : activeSlide + 1"
-    class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-slider-nav text-white p-6 rounded-full text-3xl mr-10">
+    class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-botones text-white p-6 rounded-full text-3xl mr-10">
     &#10095; <!-- Código HTML para la flecha derecha -->
     </button>
     <!-- Botones de Navegación -->
     <div class="absolute bottom-0 left-0 right-0 flex justify-center p-4 gap-2 mb-5">
         <template x-for="(slide, index) in slides" :key="index">
             <button
-            :class="{'bg-slider-nav': activeSlide === index, 'bg-gray-500': activeSlide !== index}"
+            :class="{'bg-botones': activeSlide === index, 'bg-gray-500': activeSlide !== index}"
             class="h-10 w-10 rounded-full">
           </button>
         </template>
