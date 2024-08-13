@@ -1,9 +1,19 @@
 ---
-// Importa el archivo JSON
-import Dependencias from './data/dependencias.json';
+
 ---
 
-<div x-data="ComponenteBuscador()"  class="w-full max-w-full mx-auto mt-8 px-4">
+<div x-data="{ search: '', items: [
+  { name: 'División de Desarrollo Humano', icon: 'fas fa-user-friends' },
+  { name: 'Proyección Social', icon: 'fas fa-handshake' },
+  { name: 'Administrativa y Financiera', icon: 'fas fa-briefcase' },
+  { name: 'Comunicaciones y Mercadeo', icon: 'fas fa-bullhorn' },
+  { name: 'Investigaciones y Posgrados', icon: 'fas fa-flask' },
+  { name: 'Registro Académico', icon: 'fas fa-file-alt' },
+  { name: 'Tecnologías de la Información', icon: 'fas fa-laptop-code' },
+  { name: 'Internacionalización', icon: 'fas fa-globe' },
+  { name: 'Innovación y Emprendimiento', icon: 'fas fa-lightbulb' },
+  { name: 'Biblioteca', icon: 'fas fa-book' },
+] }" class="w-full max-w-full mx-auto mt-8 px-4">
   <input type="text" x-model="search" placeholder="Buscar..." class="w-full text-6xl p-3 border border-gray-300 rounded-xl mb-4"
   />
   <div class="flex max-h-[800px] w-full flex-col overflow-y-scroll mt-12">
@@ -22,22 +32,3 @@ import Dependencias from './data/dependencias.json';
     </template>
   </div>
 </div>
-
-<script>
-  function searchComponent() {
-    return {
-      search: '',
-      items: [],
-      get filteredItems() {
-        return this.items.filter(item => item.name.toLowerCase().includes(this.search.toLowerCase()));
-      },
-      async fetchItems() {
-        // Asigna los datos del archivo JSON a la variable items
-        this.items = await (await fetch('/data/items.json')).json();
-      },
-      init() {
-        this.fetchItems();
-      }
-    };
-  }
-</script>
