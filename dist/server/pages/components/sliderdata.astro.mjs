@@ -1,0 +1,54 @@
+/* empty css                                  */
+import { c as createComponent, r as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_BsEV8pba.mjs';
+import 'kleur/colors';
+import 'clsx';
+import scrapeIt from 'scrape-it';
+export { renderers } from '../../renderers.mjs';
+
+const $$SliderData = createComponent(async ($$result, $$props, $$slots) => {
+  const { data } = await scrapeIt("https://umanizales.edu.co/", {
+    articles: {
+      listItem: ".node--type-slide",
+      data: {
+        title: ".text-content>.field--name-node-title>h3",
+        url: {
+          selector: "a",
+          attr: "href"
+        },
+        image: {
+          selector: ".field--name-field-main-image>img",
+          attr: "src"
+        }
+      }
+    }
+  });
+  const articles = data.articles;
+  return renderTemplate`<!-- Slider -->${maybeRenderHead()}<div x-data="{ activeSlide: 0, 
+    slides: ['https://umanizales.edu.co/sites/default/files/2023-12/imagen%20para%20banner.png', 
+    'https://umanizales.edu.co/sites/default/files/2024-04/banner_acreditados_alta_calidad.png', 
+    'https://umanizales.edu.co/sites/default/files/2024-06/foto_banner_para%20web.png'],        
+    init() {
+        this.startAutoSlide();
+    },
+    startAutoSlide() {
+        setInterval(() => {
+        this.activeSlide = (this.activeSlide + 1) % this.slides.length;
+        }, 10000); // Cambia de imagen cada 310segundos
+    } }" class="h-1/3 flex overflow-hidden relative"> <!-- Contenedor del Slider --> <div class="flex w-full h-full transition-transform duration-500" :style="{ transform: 'translateX(-' + (activeSlide * 100) + '%)' }"> <!-- Recorre las diapositivas --> <template x-for="(slide, index) in slides" :key="index"> <div class="w-full flex-shrink-0"> <img :src="slide" class="w-full h-full object-cover"> <div class="p-4 text-center"> <h3 class="text-8xl text-white -mt-8 font-bold" style="margin-top: -550px;">sakdhk</h3> ${articles.map((article, index) => renderTemplate`<h3 class="text-8xl text-white -mt-8 font-bold" style="margin-top: -50px;">${article.title}</h3>`)} </div> </div> </template> </div> <!-- Flecha Izquierda --> <button @click="activeSlide = activeSlide === 0 ? slides.length - 1 : activeSlide - 1" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-botones text-white p-6 rounded-full text-3xl ml-10">
+&#10094; <!-- Código HTML para la flecha izquierda --> </button> <!-- Flecha Derecha --> <button @click="activeSlide = activeSlide === slides.length - 1 ? 0 : activeSlide + 1" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-botones text-white p-6 rounded-full text-3xl mr-10">
+&#10095; <!-- Código HTML para la flecha derecha --> </button> <!-- Botones de Navegación --> <div class="absolute bottom-0 left-0 right-0 flex justify-center p-4 gap-2 mb-5"> <template x-for="(slide, index) in slides" :key="index"> <button :class="{'bg-botones': activeSlide === index, 'bg-gray-500': activeSlide !== index}" class="h-10 w-10 rounded-full"></button> </template> </div> </div>`;
+}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/SliderData.astro", void 0);
+
+const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/SliderData.astro";
+const $$url = "/components/SliderData";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$SliderData,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

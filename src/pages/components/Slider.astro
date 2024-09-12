@@ -37,23 +37,31 @@ const { data } = await scrapeIt<ScrapeResult>("https://umanizales.edu.co/", {
 
 // Guardamos los artículos en una constante
 const articles = data.articles;
+// console.log(articles);
+
+// Convertimos los artículos a una cadena JSON
+const articlesJson = JSON.stringify(articles);
+// console.log(articlesJson);
+
 ---
 
 <!-- Slider -->
 <div x-data="{ 
-    activeSlide: 0,        
+    activeSlide: 0,
+    articles: [],    
     init() {
+        this.articles = JSON.parse(this.$el.getAttribute('data-articles'));
         this.startAutoSlide();
     },
     startAutoSlide() {
         setInterval(() => {
-            this.activeSlide = (this.activeSlide + 1) % articles.length;
+            this.activeSlide = (this.activeSlide + 1) % this.articles.length;
         }, 10000); // Cambia de imagen cada 10 segundos
     } 
-}" class="h-1/3 flex overflow-hidden relative">
-    
+}" x-init="init()" data-articles="{{ articlesJson }}" class="h-1/3 flex overflow-hidden relative">
+      
     <!-- Contenedor del Slider -->
-    <div class="flex transition-transform duration-500" :style="`transform: translateX(-${activeSlide * 100}%)`">
+    <div class="flex transition-transform duration-500" :style="`transform: translateX(-${activeSlide * 100}%)`">        
         {articles.map((article, index) => (
             <div class="w-full flex-shrink-0 relative">
                 <div class="block w-full h-full relative">
@@ -76,12 +84,12 @@ const articles = data.articles;
 
     <!-- Botones de navegación -->
     <button @click="activeSlide = (activeSlide === 0) ? articles.length - 1 : activeSlide - 1"
-            class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-botones text-white p-2 rounded-full ml-10 text-4xl w-20 h-20 items-center justify-center">
-        &#10094;
+        class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-botones text-white p-2 rounded-full ml-10 text-4xl w-20 h-20 items-center justify-center">
+    &#10094;
     </button>
     <button @click="activeSlide = (activeSlide === articles.length - 1) ? 0 : activeSlide + 1"
-            class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-botones text-white p-2 rounded-full mr-10 text-4xl w-20 h-20 items-center justify-center">
-        &#10095;
+        class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-botones text-white p-2 rounded-full mr-10 text-4xl w-20 h-20 items-center justify-center">
+    &#10095;
     </button>
 
     <!-- Indicadores -->

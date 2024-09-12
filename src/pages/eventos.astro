@@ -1,90 +1,120 @@
 ---
 import MainLayouts from './components/Layouts/MainLayouts.astro';
 import Slider from './components/Slider.astro';
----
 
-<MainLayouts title = "Eventos - UManizales Totem">
+interface Event {
+  name: string;
+  image: string;
+  dates: string;
+  dayName: string | null;
+  monthName: string | null;
+  hour: string | null;
+}
+
+// Función para obtener el nombre del día de la semana
+function getDayName(dateString: string) {
+    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'];
+    var d = new Date(dateString);
+    var dayName = days[d.getDay()];
+    return dayName; 
+}
+
+// Función para obtener el nombre del mes
+function getMonthDay(dateString: string) {
+    // Crear una nueva fecha sin que se aplique automáticamente la conversión de zona horaria
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day); // Meses en JavaScript van de 0 a 11
+
+    // Obtener el nombre del mes en español
+    const monthName = date.toLocaleDateString('es-ES', { month: 'long' });
+    
+    // Obtener el número del día del mes
+    const dayNumber = date.getDate();
+    
+    // Devolver el formato "día del mes de [nombre del mes]"
+    return `${dayNumber} de ${monthName}`;
+}
+
+// Función para obtener la hora en formato normal
+function getHourDay(timeString: string) {
+    const date = new Date(`1970-01-01T${timeString}Z`); // Se usa una fecha arbitraria
+    const options = { hour: 'numeric', minute: 'numeric', hour12: true } as const;
+    return date.toLocaleTimeString('es-ES', options); // 'es-ES' para español
+}
+
+// Función para convertir la hora al formato de 12 horas (AM/PM) sin cambiar la zona horaria
+function getFormatTimeTo12Hour(timeString: string) {
+  // Separar horas y minutos
+  const [hours, minutes] = timeString.split(':').map(Number);
+  
+  // Determinar AM o PM
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  
+  // Convertir la hora al formato de 12 horas
+  const hour12 = hours % 12 || 12;
+
+  // Formatear la hora en formato de 12 horas con AM/PM
+  return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+}
+
+const response = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?apikey=hHcnyJayuOYh79PsG8tByQAD4Us0TKWT&size=10');
+// const response = await fetch('http://localhost:4321/api/ticketmaster.json');
+const data = await response.json();
+
+
+const events = data._embedded?.events.map((event: any) => ({
+    name: event.name,
+    image: event.images[0]?.url,
+    dates: event.dates?.start?.localDate,
+    dayName: event.dates?.start?.localDate ? getDayName(event.dates.start.localDate) : null, 
+    monthName: event.dates?.start?.localDate ? getMonthDay(event.dates.start.localDate) : null,
+    hour: event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.start.localTime) : null,
+})) || [];
+console.log(events);
+
+---
+<MainLayouts title="Eventos - UManizales Totem">
     <!-- Columna de eventos -->
-    <div class="flex flex-1">
-        <div class="w-full relative bg-white">
-            <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('./img/titulo_pagina.png');">            
-                <div class="grid grid-cols-2 gap-2">
-                    <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Eventos</h2>
-                    <a href="./" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><i class="fa-solid fa-arrow-left"></i></a>
-                  </div>
-                <hr class="bg-botones h-3 w-1/2 -ml-4">
+    <div class="relative bg-white">
+        <!-- Título y cabecera -->
+        <div class="w-full h-72 bg-cover bg-center p-4" style="background: url('/img/titulo_pagina.png');">
+            <div class="grid grid-cols-2 gap-2">
+                <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Eventos</h2>
+                <a href="../../" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl">
+                    <img class="ml-80 mt-2" src="/img/titulo_pagina.png" width="100" height="100" />
+                </a>
             </div>
-            <!-- Lista de eventos -->
-            <div class="flex items-center justify-center h-full">    
-                <div class="grid grid-cols-1 w-10/12 mt-32">
-                    <!-- <p class="text-4xl bg-gray-100 p-5" style="z-index: 1;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>            -->
-                    <div class="mt-10">
-                        <div class="flex h-full w-full flex-col overflow-y-scroll">
+            <hr class="bg-botones h-3 w-1/2 -ml-4">
+        </div>
+
+        <!-- Lista de eventos -->
+        <div class="w-full mb-40"> <!-- He eliminado flex para evitar el centrado vertical -->
+            <div class="grid grid-cols-1 w-10/12 mx-auto"> <!-- Centrado horizontalmente con mx-auto -->
+                <div class="mt-10">
+                    <div class="flex max-h-[800px] w-full flex-col overflow-y-scroll">
+                        {events.map((event: Event) => (
                             <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
                                 <div class="flex h-24 w-1/6 items-end text-black group-hover:bg-green-200">
                                     <p class="tag w-full text-center text-1xl font-medium text-gray-700 group-hover:text-green-900">
-                                        <label class="text-slider-nav">Martes</label><br><label style="color: #802f00;">27 de junio</label> <br><label class="text-botones">7:30 p.m.</label>
+                                        <label class="text-slider-nav" style="text-transform: capitalize;">{event.dayName}</label><br>
+                                        <label style="color: #802f00;">{event.monthName}</label><br>
+                                        <label class="text-botones">{event.hour}</label>
                                     </p>
                                 </div>
                                 <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Sabi Satizábal estará este martes en concierto de cierre de semestre en la UManizales</p>
+                                    <a href={`/eventos/${event.name.replace(/\s+/g, '-').toLowerCase()}`}>
+                                        <p class="text-left text-4xl text-slider-nav font-semibold">{event.name}</p>
+                                    </a>
                                 </div>
                             </button>
                             <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-end text-black group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-1xl font-medium text-gray-700 group-hover:text-green-900">
-                                        <label class="text-slider-nav">Martes</label><br><label style="color: #802f00;">27 de junio</label> <br><label class="text-botones">7:30 p.m.</label>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Sabi Satizábal estará este martes en concierto de cierre de semestre en la UManizales</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <br>
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-end text-black group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-1xl font-medium text-gray-700 group-hover:text-green-900">
-                                        <label class="text-slider-nav">Martes</label><br><label style="color: #802f00;">27 de junio</label> <br><label class="text-botones">7:30 p.m.</label>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Sabi Satizábal estará este martes en concierto de cierre de semestre en la UManizales</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <br>
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-end text-black group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-1xl font-medium text-gray-700 group-hover:text-green-900">
-                                        <label class="text-slider-nav">Martes</label><br><label style="color: #802f00;">27 de junio</label> <br><label class="text-botones">7:30 p.m.</label>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Sabi Satizábal estará este martes en concierto de cierre de semestre en la UManizales</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <br>
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-end text-black group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-1xl font-medium text-gray-700 group-hover:text-green-900">
-                                        <label class="text-slider-nav">Martes</label><br><label style="color: #802f00;">27 de junio</label> <br><label class="text-botones">7:30 p.m.</label>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Sabi Satizábal estará este martes en concierto de cierre de semestre en la UManizales</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <br>
-                        </div>
+                        ))}
+                        <br>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
     <!-- Slider -->
-     <Slider />
+    <Slider />
 </MainLayouts>

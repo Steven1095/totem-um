@@ -1,89 +1,68 @@
 ---
-import scrapeIt from "scrape-it";
-
-// Definimos la estructura del artículo
-interface Article {
-    title: string;
-    url: string;
-    image: string;
-}
-
-// Definimos la estructura de los datos que scrapeIt devolverá
-interface ScrapeResult {
-    articles: Article[];
-}
-
-// Hacemos el scraping en tiempo de construcción
-const { data } = await scrapeIt<ScrapeResult>("https://umanizales.edu.co/", {
-    articles: {
-        listItem: ".node--type-slide",
-        data: {
-            title: ".text-content>.field--name-node-title>h3",
-            url: {
-                selector: "a",
-                attr: "href"
-            },
-            image: {
-                selector: ".field--name-field-main-image>img",
-                attr: "src"
-            }
-        }
-    }
-});
-
-// Guardamos los artículos en una constante
-const articles = data.articles;
-
+// Importa cualquier dato de imágenes que vayas a utilizar, o define imágenes aquí
 
 ---
 
 <!-- Slider -->
-<div x-data="{ activeSlide: 0, 
-    slides: ['https://umanizales.edu.co/sites/default/files/2023-12/imagen%20para%20banner.png', 
-    'https://umanizales.edu.co/sites/default/files/2024-04/banner_acreditados_alta_calidad.png', 
-    'https://umanizales.edu.co/sites/default/files/2024-06/foto_banner_para%20web.png'],        
+<div x-data="{ 
+    activeSlide: 0, 
+    slides: [
+      '../img/galeria_totem/1.png',
+      '../img/galeria_totem/2.png',
+      '../img/galeria_totem/3.png',
+      '../img/galeria_totem/4.png',
+      '../img/galeria_totem/5.png',
+      '../img/galeria_totem/6.png',
+      '../img/galeria_totem/7.png',
+      '../img/galeria_totem/8.png',
+      '../img/galeria_totem/9.png',
+      '../img/galeria_totem/10.png',
+      '../img/galeria_totem/11.png',
+      '../img/galeria_totem/12.png',
+      '../img/galeria_totem/13.png',
+      '../img/galeria_totem/14.png',
+      '../img/galeria_totem/15.png',
+      '../img/galeria_totem/16.png',
+      '../img/galeria_totem/17.png',
+      '../img/galeria_totem/18.png',
+      '../img/galeria_totem/19.png',
+      '../img/galeria_totem/20.png',
+      '../img/galeria_totem/21.png',
+      '../img/galeria_totem/22.png',
+      '../img/galeria_totem/23.png',
+      '../img/galeria_totem/24.png', 
+      '../img/galeria_totem/25.png'
+    ],
     init() {
-        this.startAutoSlide();
+      this.startAutoSlide();
     },
     startAutoSlide() {
-        setInterval(() => {
+      setInterval(() => {
         this.activeSlide = (this.activeSlide + 1) % this.slides.length;
-        }, 10000); // Cambia de imagen cada 310segundos
-    } }" class="h-1/3 flex overflow-hidden relative">
-    <!-- Contenedor del Slider -->
-    <div class="flex w-full h-full transition-transform duration-500" :style="{ transform: 'translateX(-' + (activeSlide * 100) + '%)' }">
+      }, 10000); // Cambia de imagen cada 10 segundos
+    }
+  }" class="h-screen flex flex-col">
+        
+      
+      <!-- Contenedor del Slider -->
+      <div class="flex w-full h-full transition-transform duration-500" :style="{ transform: 'translateX(-' + (activeSlide * 100) + '%)' }">
         <!-- Recorre las diapositivas -->
         <template x-for="(slide, index) in slides" :key="index">
-            <div class="w-full flex-shrink-0">
-                <img :src="slide" class="w-full h-full object-cover">
-                <div class="p-4 text-center">
-                    <h3 class="text-8xl text-white -mt-8 font-bold" style="margin-top: -550px;">sakdhk</h3>
-                    {articles.map((article, index) => (
-                        <h3 class="text-8xl text-white -mt-8 font-bold" style="margin-top: -50px;">{article.title}</h3>
-                    ))}
-                </div>
-            </div>
+          <div class="w-full flex-shrink-0">
+            <img :src="slide" class="w-full h-full object-cover">
+          </div>
         </template>
-    </div>
-    <!-- Flecha Izquierda -->
-    <button @click="activeSlide = activeSlide === 0 ? slides.length - 1 : activeSlide - 1"
-    class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-botones text-white p-6 rounded-full text-3xl ml-10">
-    &#10094; <!-- Código HTML para la flecha izquierda -->
-    </button>
-    <!-- Flecha Derecha -->
-    <button @click="activeSlide = activeSlide === slides.length - 1 ? 0 : activeSlide + 1"
-    class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-botones text-white p-6 rounded-full text-3xl mr-10">
-    &#10095; <!-- Código HTML para la flecha derecha -->
-    </button>
-    <!-- Botones de Navegación -->
-    <div class="absolute bottom-0 left-0 right-0 flex justify-center p-4 gap-2 mb-5">
-        <template x-for="(slide, index) in slides" :key="index">
-            <button
-            :class="{'bg-botones': activeSlide === index, 'bg-gray-500': activeSlide !== index}"
-            class="h-10 w-10 rounded-full">
-          </button>
-        </template>
-    </div>
-</div>
+      </div>
   
+      <!-- Flecha Izquierda -->
+      <button @click="activeSlide = activeSlide === 0 ? slides.length - 1 : activeSlide - 1"
+              class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-4 rounded-full text-2xl">
+        &#10094; <!-- Código HTML para la flecha izquierda -->
+      </button>
   
+      <!-- Flecha Derecha -->
+      <button @click="activeSlide = activeSlide === slides.length - 1 ? 0 : activeSlide + 1"
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-4 rounded-full text-2xl">
+        &#10095; <!-- Código HTML para la flecha derecha -->
+      </button>
+  </div>
