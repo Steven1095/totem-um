@@ -1,0 +1,12 @@
+[
+    { "name": "División de Desarrollo Humano", "icon": "fas fa-user-friends" },
+    { "name": "Proyección Social", "icon": "fas fa-handshake" },
+    { "name": "Administrativa y Financiera", "icon": "fas fa-briefcase" },
+    { "name": "Comunicaciones y Mercadeo", "icon": "fas fa-bullhorn" },
+    { "name": "Investigaciones y Posgrados", "icon": "fas fa-flask" },
+    { "name": "Registro Académico", "icon": "fas fa-file-alt" },
+    { "name": "Tecnologías de la Información", "icon": "fas fa-laptop-code" },
+    { "name": "Internacionalización", "icon": "fas fa-globe" },
+    { "name": "Innovación y Emprendimiento", "icon": "fas fa-lightbulb" },
+    { "name": "Biblioteca", "icon": "fas fa-book" }
+]

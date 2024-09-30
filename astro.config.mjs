@@ -13,10 +13,10 @@ export default defineConfig({
   },
   server: {
     host: true, // Permite que el servidor sea accesible desde otros dispositivos si es necesario
-  }
-  // output: "server",
-  // adapter: node({
-  //   /*mode: "standalone"*/ /// Solo contenido estático
-  //   mode: "standalone"
-  // })
+  },
+  output: "server",
+  adapter: node({
+    /*mode: "standalone"*/ /// Solo contenido estático
+    mode: "standalone"
+  })
 });

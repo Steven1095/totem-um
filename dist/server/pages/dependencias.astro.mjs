@@ -1,28 +1,13 @@
----
-import MainLayouts from './components/Layouts/MainLayouts.astro';
-import Slider from './components/Slider.astro';
-import Buscador2 from './components/Buscador2.astro';
-import { Icon } from 'astro-icon/components';
----
+/* empty css                                      */
+import { c as createComponent, r as renderTemplate, e as renderComponent, m as maybeRenderHead } from '../chunks/astro/server_DIxofdS6.mjs';
+import 'kleur/colors';
+import { $ as $$MainLayouts } from '../chunks/MainLayouts_CM9tFvcv.mjs';
+import { $ as $$Slider } from '../chunks/Slider_BhUS0O-k.mjs';
+import { $ as $$Buscador2 } from '../chunks/Buscador2_BeJAkVee.mjs';
+export { renderers } from '../renderers.mjs';
 
-<MainLayouts title = "Dependencias - UManizales Totem">
-    <!-- Columna de Dependencias -->
-    <div class="flex flex-1">
-        <div class="w-full relative bg-white">
-            <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('./img/titulo_pagina.png');">            
-                <div class="grid grid-cols-2 gap-2">
-                    <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Dependencias</h2>
-                    <a href="./" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><img class="ml-80 mt-2" src="https://umanizales.edu.co/sites/default/files/2024-08/image.png" width="100" height="100" /></a>
-                  </div>
-                <hr class="bg-botones h-3 w-2/3 -ml-4">
-            </div>
-            <!-- Lista de depedencias -->
-            <div class="flex items-center justify-center h-full">    
-                <div class="grid grid-cols-1 w-10/12">
-                    <!-- <p class="text-4xl bg-gray-120 p-5" style="z-index: 1;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>            -->
-                    <div class="mt-10">
-                        <Buscador2 />
-                        <!-- <div class="flex max-h-[800px] w-full flex-col overflow-y-scroll mt-12">
+const $$Dependencias = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "MainLayouts", $$MainLayouts, { "title": "Dependencias - UManizales Totem" }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<div class="flex flex-1"> <div class="w-full relative bg-white"> <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('./img/titulo_pagina.png');"> <div class="grid grid-cols-2 gap-2"> <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Dependencias</h2> <a href="./" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><img class="ml-80 mt-2" src="https://umanizales.edu.co/sites/default/files/2024-08/image.png" width="100" height="100"></a> </div> <hr class="bg-botones h-3 w-2/3 -ml-4"> </div> <!-- Lista de depedencias --> <div class="flex mt-52 justify-center h-full"> <div class="grid grid-cols-1 w-10/12"> <!-- <p class="text-4xl bg-gray-120 p-5" style="z-index: 1;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>            --> <div class="mt-10"> ${renderComponent($$result2, "Buscador2", $$Buscador2, {})} <!-- <div class="flex max-h-[800px] w-full flex-col overflow-y-scroll mt-12">
                             <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
                                 <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
                                     <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
@@ -133,12 +118,19 @@ import { Icon } from 'astro-icon/components';
                                 </div>
                             </button>                            
                             <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                        </div> -->
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-    <!-- Slider -->
-     <Slider />
-</MainLayouts>
+                        </div> --> </div> </div> </div> </div> </div>  ${renderComponent($$result2, "Slider", $$Slider, {})} ` })}`;
+}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/dependencias.astro", void 0);
+
+const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/dependencias.astro";
+const $$url = "/totem-um/dist/dependencias";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+    __proto__: null,
+    default: $$Dependencias,
+    file: $$file,
+    url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

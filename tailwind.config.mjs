@@ -6,7 +6,8 @@ export default {
 			colors: {
 				'slider-nav': '#003333',
 				'botones': '#a8cf45',  
-				'botones-hover': '#65913e'
+				'botones-hover': '#65913e',
+				'color-iconos': '#DCA005'
 			  },
 		},
 	},

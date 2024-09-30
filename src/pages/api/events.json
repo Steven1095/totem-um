@@ -1,43 +1,147 @@
 [
-    {
-      "name": "Concierto de Rock",
-      "imagen": "https://s1.ticketm.net/dam/a/455/612b13a2-822a-4cda-9920-098692170455_TABLET_LANDSCAPE_16_9.jpg",
-      "dates": {
-        "start": {
-          "localDate": "2024-09-15",
-          "localTime": "20:00:00"
-        }
-      },
-      "_embedded": {
-        "venues": [
-          {
-            "name": "Estadio Nacional",
-            "city": {
-              "name": "Ciudad Capital"
-            }
-          }
-        ]
+  {
+    "name": "Concierto de Rock",
+    "imagen": "https://s1.ticketm.net/dam/a/455/612b13a2-822a-4cda-9920-098692170455_TABLET_LANDSCAPE_16_9.jpg",
+    "descripcion": "La Universidad de Manizales rinde un homenaje a su fundador Hugo Salazar García, en el marco de la celebración de los 50 años de la Institución.",
+    "lugar" : "Auditorio auxiliar Torre Emblemática Guillermo Orlando Sierra",
+    "modalidad": "Presencial",
+    "moderador": null,
+    "dates": {
+      "start": {
+        "localDate": "2024-09-15",
+        "localTime": "20:00:00"
       }
     },
-    {
-      "name": "Festival de Jazz",
-      "imagen": "https://s1.ticketm.net/dam/a/c62/0636ff21-e369-4b8c-bee4-214ea0a81c62_1339761_CUSTOM.jpg",
-      "dates": {
-        "start": {
-          "localDate": "2024-09-20",
-          "localTime": "18:30:00" 
-        }
-      },
-      "_embedded": {
-        "venues": [
-          {
-            "name": "Auditorio Central",
-            "city": {
-              "name": "Ciudad Musical"
-            }
+    "_embedded": {
+      "venues": [
+        {
+          "name": "Estadio Nacional",
+          "city": {
+            "name": "Ciudad Capital"
           }
-        ]
-      }
+        }
+      ]
     }
-  ]
-  
+  },
+  {
+    "name": "Festival de Jazz",
+    "imagen": "https://s1.ticketm.net/dam/a/c62/0636ff21-e369-4b8c-bee4-214ea0a81c62_1339761_CUSTOM.jpg",
+    "descripcion": "La Universidad de Manizales a través de su Doctorado en Administración, con el fin de resaltar a organizaciones que han hecho contribuciones importantes a la competitividad y sostenibilidad del país crea el Premio Colombiano a la Sostenibilidad Organizacional.",
+    "lugar" : "Auditorio Hugo Salazar Torre Emblemática Guillermo Orlando Sierra",
+    "modalidad": "Virtual",
+    "moderador": "",
+    "dates": {
+      "start": {
+        "localDate": "2024-09-20",
+        "localTime": "18:30:00" 
+      }
+    },
+    "_embedded": {
+      "venues": [
+        {
+          "name": "Auditorio Central",
+          "city": {
+            "name": "Ciudad Musical"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Festival de Jazz 2",
+    "imagen": "https://s1.ticketm.net/dam/a/c62/0636ff21-e369-4b8c-bee4-214ea0a81c62_1339761_CUSTOM.jpg",
+    "descripcion": "La Universidad de Manizales rinde un homenaje a su fundador Hugo Salazar García, en el marco de la celebración de los 50 años de la Institución.",
+    "lugar" : "Sala C01 Edificio Histórico",
+    "modalidad": "Presencial",
+    "moderador": null,
+    "dates": {
+      "start": {
+        "localDate": "2024-09-20",
+        "localTime": "18:30:00" 
+      }
+    },
+    "_embedded": {
+      "venues": [
+        {
+          "name": "Auditorio Central",
+          "city": {
+            "name": "Ciudad Musical"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Festival de Jazz 3",
+    "imagen": "https://s1.ticketm.net/dam/a/c62/0636ff21-e369-4b8c-bee4-214ea0a81c62_1339761_CUSTOM.jpg",
+    "descripcion": "La Universidad de Manizales a través de su Doctorado en Administración, con el fin de resaltar a organizaciones que han hecho contribuciones importantes a la competitividad y sostenibilidad del país crea el Premio Colombiano a la Sostenibilidad Organizacional.",
+    "lugar" : "Piso 13 Torre Emblemática Guillermo Orlando Sierra",
+    "modalidad": "Virtual",
+    "moderador": "Juan Lozano",
+    "dates": {
+      "start": {
+        "localDate": "2024-09-20",
+        "localTime": "18:30:00" 
+      }
+    },
+    "_embedded": {
+      "venues": [
+        {
+          "name": "Auditorio Central",
+          "city": {
+            "name": "Ciudad Musical"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Festival de Jazz: octubre",
+    "imagen": "https://s1.ticketm.net/dam/a/c62/0636ff21-e369-4b8c-bee4-214ea0a81c62_1339761_CUSTOM.jpg",
+    "descripcion": "La Universidad de Manizales rinde un homenaje a su fundador Hugo Salazar García, en el marco de la celebración de los 50 años de la Institución.",
+    "lugar" : "Auditorio auxiliar Torre Emblemática Guillermo Orlando Sierra",
+    "modalidad": "Presencial",
+    "moderador": null,
+    "dates": {
+      "start": {
+        "localDate": "2024-09-20",
+        "localTime": "18:30:00" 
+      }
+    },
+    "_embedded": {
+      "venues": [
+        {
+          "name": "Auditorio Central",
+          "city": {
+            "name": "Ciudad Musical"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Festival de Jazz - noviembre",
+    "imagen": "https://s1.ticketm.net/dam/a/c62/0636ff21-e369-4b8c-bee4-214ea0a81c62_1339761_CUSTOM.jpg",
+    "descripcion": "La Universidad de Manizales a través de su Doctorado en Administración, con el fin de resaltar a organizaciones que han hecho contribuciones importantes a la competitividad y sostenibilidad del país crea el Premio Colombiano a la Sostenibilidad Organizacional.",
+    "lugar" : "Auditorio auxiliar Torre Emblemática Guillermo Orlando Sierra",
+    "modalidad": "Presencial",
+    "moderador": "Tito Puente",
+    "dates": {
+      "start": {
+        "localDate": "2024-09-20",
+        "localTime": "18:30:00" 
+      }
+    },
+    "_embedded": {
+      "venues": [
+        {
+          "name": "Auditorio Central",
+          "city": {
+            "name": "Ciudad Musical"
+          }
+        }
+      ]
+    }
+  }
+
+]
