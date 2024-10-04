@@ -74,9 +74,6 @@ const events = data.map((event: any) => ({
     hour: event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.start.localTime) : null,
 })) || [];
 console.log(events);
-
-
-
 ---
 
 <MainLayouts title = "Eventos - UManizales Totem">
@@ -93,7 +90,6 @@ console.log(events);
             <!-- Lista de eventos -->
             <div class="flex items-center justify-center h-full">    
                 <div class="grid grid-cols-1 w-10/12 mt-32">
-                    <!-- <p class="text-4xl bg-gray-100 p-5" style="z-index: 1;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>            -->
                     <div class="mt-10">
                         <div class="flex max-h-[1000px] w-full flex-col overflow-y-scroll">                            
                             {events.map((event: Event) => (

@@ -1,124 +1,125 @@
 ---
-// src/pages/eventos/[name].astro
-
 import MainLayouts from '../components/Layouts/MainLayouts.astro';
 import Slider from '../components/Slider.astro';
 
-import type { GetStaticPaths } from 'astro';
-// export const prerender = true;
-
-interface Event {
+interface Dependencia {
+  id: string;
   name: string;
-  images: { url: string }[]; dates: {
-    start: {
-      localDate: string;
-      localTime: string;
-    };
-  };
-  url: string;
-  dayName: string | null;
-  monthName: string | null;
-  hour: string | null;
+  icon: string;
 }
 
-// Obtener las rutas para cada evento
-export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?apikey=hHcnyJayuOYh79PsG8tByQAD4Us0TKWT&size=10');
-  // const response = await fetch('http://localhost:4321/api/ticketmaster.json');
-  const data = await response.json();
-
-  const events = data._embedded?.events || [];
-
-  return events.map((event: any) => ({
-    params: { 
-      name: event.name.replace(/\s+/g, '-').toLowerCase()
-    },
-    props: { event },
-  }));
-};
-
-function getDayName(dateString: string) {
-    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'];
-    var d = new Date(dateString);
-    var dayName = days[d.getDay()];
-    return dayName; 
+// Función para normalizar nombres: quitar tildes y reemplazar espacios por guiones
+function normalizeName(name: string): string {
+  return name.normalize('NFD') // Descompone caracteres con acentos
+             .replace(/[\u0300-\u036f]/g, '') // Elimina los acentos
+             .toLowerCase() // Convierte a minúsculas
+             .replace(/\s+/g, '-'); // Reemplaza los espacios por guiones
 }
-// Función para obtener el nombre del mes
-function getMonthDay(dateString: string) {
-    // Crear una nueva fecha sin que se aplique automáticamente la conversión de zona horaria
-    const [year, month, day] = dateString.split('-').map(Number);
-    const date = new Date(year, month - 1, day); // Meses en JavaScript van de 0 a 11
 
-    // Obtener el nombre del mes en español
-    const monthName = date.toLocaleDateString('es-ES', { month: 'long' });
-    
-    // Obtener el número del día del mes
-    const dayNumber = date.getDate();
-    
-    // Devolver el formato "día del mes de [nombre del mes]"
-    return `${dayNumber} de ${monthName}`;
-}
-// Función para convertir la hora al formato de 12 horas (AM/PM) sin cambiar la zona horaria
-function getFormatTimeTo12Hour(timeString: string) {
-  // Separar horas y minutos
-  const [hours, minutes] = timeString.split(':').map(Number);
-  
-  // Determinar AM o PM
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  
-  // Convertir la hora al formato de 12 horas
-  const hour12 = hours % 12 || 12;
+// Realiza la solicitud para obtener los datos del JSON
+const response = await fetch('https://autoevaluacion.umanizales.edu.co/dependencias.json');
+const jsonData = await response.json(); // Accedemos al JSON
 
-  // Formatear la hora en formato de 12 horas con AM/PM
-  return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+// Acceder correctamente al arreglo de dependencias
+const dependencias: Dependencia[] = jsonData.Dependencias || [];
+
+// Asegúrate de que `Astro.params.name` esté definido
+const dependenciaName = Astro.params.name ? decodeURIComponent(Astro.params.name) : ''; // Decodifica solo si hay un valor
+
+// Normaliza el nombre de la dependencia y realiza la búsqueda
+const dependencia = dependencias.find((dep: Dependencia) => 
+  normalizeName(dep.name) === normalizeName(dependenciaName) // Compara nombres normalizados
+);
+
+if (!dependencia) {
+  throw new Error('Dependencia no encontrada');
 }
-const { event } = Astro.props as { event: Event };
-const dayName = getDayName(event.dates.start.localDate);
-const monthName = getMonthDay(event.dates.start.localDate);
-const hour = getFormatTimeTo12Hour(event.dates.start.localTime);
 ---
 
-<MainLayouts title={event.name}>
-  <!-- Columna de eventos -->
+<MainLayouts title={dependencia.name}>
+  <!-- Columna de dependencias -->
   <div class="flex flex-1">
     <div class="w-full relative bg-white">
       <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('../../img/titulo_pagina.png');">  
         <div class="flex">
           <!-- Columna de 80% -->
           <div class="w-4/5">
-            <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">{event.name}</h2>
+            <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">{dependencia.name}</h2>
           </div>        
           <!-- Columna de 20% -->
           <div class="w-1/5">
-            <a href="/eventos" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><img class="ml-12 mt-2" src="https://umanizales.edu.co/sites/default/files/2024-08/image.png" width="100" height="100" /></a>
+            <a href="/dependencias" class="text-right text-botones hover:text-botones-hover mr-12 m-5"><img class="ml-12 mt-2" src="https://umanizales.edu.co/sites/default/files/2024-08/image.png" width="100" height="100" /></a>
           </div>
         </div>   
-          <hr class="bg-botones h-3 w-1/2 -ml-4">
+        <hr class="bg-botones h-3 w-1/2 -ml-4">
       </div>
-      <div class="w-full flex items-center justify-center h-4/5 mt-12">    
+      <div class="w-full flex items-center justify-center h-4/5 mt-40">    
         <div class="grid grid-cols-6 gap-4">
-          <div class="col-start-2 col-span-4 mt-36">
-            <img src={event.images[0]?.url} alt={event.name} />
+          <div class="col-start-2 col-span-4">
+            <img width="750px" height="400px" src="https://umanizales.edu.co/sites/default/files/2024-09/IMG_2733.jpg" />
+          </div>
+          <div class="col-start-2 col-span-4">
+            <p class="text-black text-2xl font-normal">{dependencia.name}</p>
           </div>
           <div class="col-start-2 col-end-4 mt-4">
             <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Lugar del evento:</p>
+            <div class="flex mt-2">
+              <!-- Columna de 80% -->
+              <div class="w-1/5 text-center align-middle">
+                <i class="fas fa-building mt-3 text-color-iconos text-4xl"></i>
+              </div>        
+              <!-- Columna de 20% -->
+              <div class="w-4/5">
+                <p class="text-black text-2xl font-normal">{dependencia.name}</p>
+              </div>
+            </div>  
           </div>
           <div class="col-end-8 col-span-4 mt-4">
             <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Fecha y hora del evento:</p>
-            <p class="text-black text-2xl font-medium">{dayName} {monthName}</p>
-            <p class="text-black text-2xl font-light">{hour}</p>
+            <div class="flex mt-2">
+              <!-- Columna de 80% -->
+              <div class="w-1/5 text-center align-middle">
+                <i class="fas fa-calendar-days mt-3 text-color-iconos text-4xl"></i>
+              </div>        
+              <!-- Columna de 20% -->
+              <div class="w-4/5">
+                <!-- <p class="text-black text-2xl font-medium">{dayName} {monthName}</p>
+                <p class="text-black text-2xl font-normal">{hour}</p> -->
+              </div>
+            </div>  
           </div>
           <div class="col-start-2 col-end-4 mt-4">
             <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Modalidad:</p>
-            <label class="text-slider-nav" style="text-transform: capitalize;">{dayName}</label>
+            <div class="flex mt-2">
+              <!-- Columna de 80% -->
+              <div class="w-1/5 text-center">
+                <i class="fas fa-location-dot mt-3 text-color-iconos text-4xl"></i>
+              </div>        
+              <!-- Columna de 20% -->
+              <div class="w-4/5">
+                <p class="text-black text-2xl font-normal">{dependencia.name}</p>
+              </div>
+            </div>  
           </div>
-          <div class="col-end-8 col-span-4 mt-4">
+          <div class="col-start-2 col-end-4 mt-4">
+            {dependencia.name && (
             <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Moderador:</p>
-          </div>
+            <div class="flex mt-2">
+              <!-- Columna de 80% -->
+              <div class="w-1/5 text-center">
+                <i class="fas fa-user mt-3 text-color-iconos text-4xl"></i>
+              </div>        
+              <!-- Columna de 20% -->
+              <div class="w-4/5">
+                <p class="text-black text-2xl font-normal">{dependencia.name}</p>
+              </div>
+              </div>
+            )}
+          </div>  
         </div>
       </div>
     </div>
   </div>
   <!-- Slider -->
-   <Slider />
+  <Slider />
 </MainLayouts>

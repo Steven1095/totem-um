@@ -15,7 +15,7 @@ const $$SliderData = createComponent(($$result, $$props, $$slots) => {
     '../img/galeria_totem/5.png',
     '../img/galeria_totem/6.png',
     '../img/galeria_totem/7.png',
-    '../img/galeria_totem/8.png',
+    '../img/galeria_totem/8.jpg',
     '../img/galeria_totem/9.png',
     '../img/galeria_totem/10.png',
     '../img/galeria_totem/11.png',
@@ -23,15 +23,7 @@ const $$SliderData = createComponent(($$result, $$props, $$slots) => {
     '../img/galeria_totem/13.png',
     '../img/galeria_totem/14.png',
     '../img/galeria_totem/15.png',
-    '../img/galeria_totem/17.png',
-    '../img/galeria_totem/18.png',
-    '../img/galeria_totem/19.png',
-    '../img/galeria_totem/20.png',
-    '../img/galeria_totem/21.png',
-    '../img/galeria_totem/22.png',
-    '../img/galeria_totem/23.png',
-    '../img/galeria_totem/24.png', 
-    '../img/galeria_totem/25.png'
+    '../img/galeria_totem/17.png'
   ],
   init() {
     this.startAutoSlide();

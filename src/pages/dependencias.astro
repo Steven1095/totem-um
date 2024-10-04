@@ -1,7 +1,7 @@
 ---
 import MainLayouts from './components/Layouts/MainLayouts.astro';
 import Slider from './components/Slider.astro';
-import Buscador2 from './components/Buscador2.astro';
+import Buscador from './components/Buscador.astro';
 import { Icon } from 'astro-icon/components';
 ---
 
@@ -18,122 +18,9 @@ import { Icon } from 'astro-icon/components';
             </div>
             <!-- Lista de depedencias -->
             <div class="flex items-center justify-center h-full">    
-                <div class="grid grid-cols-1 w-10/12">
-                    <!-- <p class="text-4xl bg-gray-120 p-5" style="z-index: 1;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>            -->
+                <div class="grid grid-cols-1 w-10/12 mt-32">
                     <div class="mt-10">
-                        <Buscador2 />
-                        <!-- <div class="flex max-h-[800px] w-full flex-col overflow-y-scroll mt-12">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-user-friends"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">División de Desarrollo Humano</p>
-                                </div>
-                            </button>
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-handshake"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Proyección Social</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-briefcase"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Administrativa y Financiera</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-bullhorn"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Comunicaciones y Mercadeo</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-flask"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Investigaciones y Posgrados</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-file-alt"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Registro Académico</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-laptop-code"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Tecnologías de la Información</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-globe"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Internacionalización</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-lightbulb"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Innovación y Emprendimiento</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                            <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5">
-                                <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200">
-                                    <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900">
-                                        <i class="fas fa-book"></i>
-                                    </p>
-                                </div>
-                                <div class="flex w-full flex-col items-start justify-between">
-                                    <p class="text-left text-4xl text-slider-nav font-semibold">Biblioteca</p>
-                                </div>
-                            </button>                            
-                            <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">
-                        </div> -->
+                        <Buscador />
                     </div>
                 </div> 
             </div>

@@ -1,9 +1,9 @@
 /* empty css                                      */
 import { c as createComponent, r as renderTemplate, e as renderComponent } from '../chunks/astro/server_DIxofdS6.mjs';
 import 'kleur/colors';
-import { $ as $$MainLayouts } from '../chunks/MainLayouts_CM9tFvcv.mjs';
-import { $ as $$Panel } from '../chunks/Panel_Dioq30hH.mjs';
-import { $ as $$Slider } from '../chunks/Slider_BhUS0O-k.mjs';
+import { $ as $$MainLayouts } from '../chunks/MainLayouts_BCvPyPFV.mjs';
+import { $ as $$Panel } from '../chunks/Panel_rdOQ8JIs.mjs';
+import { $ as $$Slider } from '../chunks/Slider_BT-YCntq.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Index = createComponent(($$result, $$props, $$slots) => {

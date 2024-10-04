@@ -1,12 +1,14 @@
-[
-    { "name": "División de Desarrollo Humano", "icon": "fas fa-user-friends" },
-    { "name": "Proyección Social", "icon": "fas fa-handshake" },
-    { "name": "Administrativa y Financiera", "icon": "fas fa-briefcase" },
-    { "name": "Comunicaciones y Mercadeo", "icon": "fas fa-bullhorn" },
-    { "name": "Investigaciones y Posgrados", "icon": "fas fa-flask" },
-    { "name": "Registro Académico", "icon": "fas fa-file-alt" },
-    { "name": "Tecnologías de la Información", "icon": "fas fa-laptop-code" },
-    { "name": "Internacionalización", "icon": "fas fa-globe" },
-    { "name": "Innovación y Emprendimiento", "icon": "fas fa-lightbulb" },
-    { "name": "Biblioteca", "icon": "fas fa-book" }
-]
+{
+    "Dependencias": [
+        { "id": "1", "name": "División de Desarrollo Humano", "icon": "fas fa-user-friends" },
+        { "id": "2", "name": "Proyección Social", "icon": "fas fa-handshake" },
+        { "id": "3", "name": "Administrativa y Financiera", "icon": "fas fa-briefcase" },
+        { "id": "4", "name": "Comunicaciones y Mercadeo", "icon": "fas fa-bullhorn" },
+        { "id": "5", "name": "Investigaciones y Posgrados", "icon": "fas fa-flask" },
+        { "id": "6", "name": "Registro Académico", "icon": "fas fa-file-alt" },
+        { "id": "7", "name": "Tecnologías de la Información", "icon": "fas fa-laptop-code" },
+        { "id": "8", "name": "Internacionalización", "icon": "fas fa-globe" },
+        { "id": "9", "name": "Innovación y Emprendimiento", "icon": "fas fa-lightbulb" },
+        { "id": "10", "name": "Biblioteca", "icon": "fas fa-book" }
+    ]
+}
