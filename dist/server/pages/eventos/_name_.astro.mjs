@@ -1,8 +1,8 @@
 /* empty css                                         */
-import { c as createComponent, r as renderTemplate, e as renderComponent, b as createAstro, m as maybeRenderHead, a as addAttribute } from '../../chunks/astro/server_DIxofdS6.mjs';
+import { c as createComponent, r as renderTemplate, d as renderComponent, b as createAstro, m as maybeRenderHead, a as addAttribute } from '../../chunks/astro/server_CqfnIhi3.mjs';
 import 'kleur/colors';
-import { $ as $$MainLayouts } from '../../chunks/MainLayouts_BCvPyPFV.mjs';
-import { $ as $$Slider } from '../../chunks/Slider_BT-YCntq.mjs';
+import { $ as $$MainLayouts } from '../../chunks/MainLayouts_C-YSvhFR.mjs';
+import { $ as $$Slider } from '../../chunks/Slider_COi8F85x.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro();

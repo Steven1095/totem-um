@@ -1,4 +1,4 @@
-import { _ as _page } from '../../chunks/Buscador_DND_CCIS.mjs';
+import { _ as _page } from '../../chunks/Buscador_Bo8ixoQR.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const page = () => _page;

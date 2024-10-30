@@ -1,8 +1,8 @@
 /* empty css                                         */
-import { c as createComponent, r as renderTemplate, e as renderComponent, b as createAstro, m as maybeRenderHead } from '../../chunks/astro/server_DIxofdS6.mjs';
+import { c as createComponent, r as renderTemplate, d as renderComponent, b as createAstro, m as maybeRenderHead } from '../../chunks/astro/server_CqfnIhi3.mjs';
 import 'kleur/colors';
-import { $ as $$MainLayouts } from '../../chunks/MainLayouts_BCvPyPFV.mjs';
-import { $ as $$Slider } from '../../chunks/Slider_BT-YCntq.mjs';
+import { $ as $$MainLayouts } from '../../chunks/MainLayouts_C-YSvhFR.mjs';
+import { $ as $$Slider } from '../../chunks/Slider_COi8F85x.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro();
@@ -27,7 +27,6 @@ const $$name = createComponent(async ($$result, $$props, $$slots) => {
                 <p class="text-black text-2xl font-normal">{hour}</p> --> </div> </div> </div> <div class="col-start-2 col-end-4 mt-4"> <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Modalidad:</p> <div class="flex mt-2"> <!-- Columna de 80% --> <div class="w-1/5 text-center"> <i class="fas fa-location-dot mt-3 text-color-iconos text-4xl"></i> </div> <!-- Columna de 20% --> <div class="w-4/5"> <p class="text-black text-2xl font-normal">${dependencia.name}</p> </div> </div> </div> <div class="col-start-2 col-end-4 mt-4"> ${dependencia.name && renderTemplate`<p class="tag w-full text-left text-3xl font-medium text-slider-nav">Moderador:</p>
             <div class="flex mt-2"> <!-- Columna de 80% --> <div class="w-1/5 text-center"> <i class="fas fa-user mt-3 text-color-iconos text-4xl"></i> </div> <!-- Columna de 20% --> <div class="w-4/5"> <p class="text-black text-2xl font-normal">${dependencia.name}</p> </div> </div>`} </div> </div> </div> </div> </div>  ${renderComponent($$result2, "Slider", $$Slider, {})} ` })}`;
 }, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/dependencias/[name].astro", void 0);
-
 const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/dependencias/[name].astro";
 const $$url = "/totem-um/dist/dependencias/[name]";
 

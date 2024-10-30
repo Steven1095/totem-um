@@ -17,7 +17,7 @@ function normalizeName(name: string): string {
 }
 
 // Realiza la solicitud para obtener los datos del JSON
-const response = await fetch('https://autoevaluacion.umanizales.edu.co/dependencias.json');
+const response = await fetch(import.meta.env.API_DEPENDENCIAS_URL);
 const jsonData = await response.json(); // Accedemos al JSON
 
 // Acceder correctamente al arreglo de dependencias

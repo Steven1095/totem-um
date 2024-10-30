@@ -41,7 +41,7 @@ const articles = data.articles;
 
 // Convertimos los artículos a una cadena JSON
 const articlesJson = JSON.stringify(articles);
-// console.log(articlesJson);
+console.log(articlesJson);
 
 ---
 
@@ -50,7 +50,6 @@ const articlesJson = JSON.stringify(articles);
     activeSlide: 0,
     articles: [],    
     init() {
-        this.articles = JSON.parse(this.$el.getAttribute('data-articles'));
         this.startAutoSlide();
     },
     startAutoSlide() {

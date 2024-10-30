@@ -1,0 +1,30 @@
+---
+import MainLayouts from "../components/Layouts/MainLayouts.astro";
+
+// src/components/CrudList.astro
+
+// let items = [];
+
+// const deleteItem = (id) => {
+//   items = items.filter(item => item.id !== id);
+// };
+---
+
+<MainLayouts title="Lista Eventos - Totem UM">
+    <ul class="space-y-4">
+        <li class="text-gray-500">No hay elementos.</li>
+          <li class="p-4 bg-white shadow rounded-lg flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-medium">titulo evento</h3>
+              <p class="text-gray-500">description</p>
+              <time class="text-sm text-gray-400">
+                17 de septiembre a las 10:00 A.M.
+              </time>
+            </div>
+            <button class="text-red-500 hover:text-red-700">
+              Eliminar
+            </button>
+          </li>
+    </ul>
+</MainLayouts>
+
