@@ -2,22 +2,17 @@
 import MainLayouts from "../components/Layouts/MainLayouts.astro";
 import Formulario from "./Formulario.astro";
 import ListaEventos from "./ListaEventos.astro";
-
-
 ---
-
 <MainLayouts title = "Administración de eventos - Totem UM">
-    <!-- <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('/img/titulo_pagina.png');">  
+    <div class="w-full absolute top-0 h-72 bg-no-repeat bg-cover bg-center p-4" style="background-image: url('/img/titulo_pagina.png');">  
                 
-      <div class="grid grid-cols-2 gap-2">
-          <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Eventos</h2>
-          <a href="../../" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><img class="ml-80 mt-2" src="https://umanizales.edu.co/sites/default/files/2024-08/image.png" width="100" height="100" /></a>
+      <div class="container mx-auto">
+          <h2 style="font-size: clamp(2rem, 2vw + 1.5rem, 4rem);" class="text-slider-nav font-semibold m-6 text-left">Creación de eventos</h2>
         </div>
-        <hr class="bg-botones h-3 w-1/2 -ml-4">
-    </div> -->
-    <div class="container mx-auto py-8">
-        <h1 class="text-2xl font-bold mb-8">CRUD en Astro con TailwindCSS</h1>
-        <Formulario />
-        <ListaEventos />
-      </div>
+        <hr class="bg-botones h-2 md:h-2 lg:h-1  w-1/2 -ml-4">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20 xl:px-30 mt-8">
+          <Formulario />
+          <ListaEventos />
+        </div>
+    </div>
 </MainLayouts>

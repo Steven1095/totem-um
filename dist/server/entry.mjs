@@ -2903,42 +2903,44 @@ const _page0 = () => import('./pages/_image.astro.mjs');
 const _page1 = () => import('./pages/admin/admineventos.astro.mjs');
 const _page2 = () => import('./pages/admin/formulario.astro.mjs');
 const _page3 = () => import('./pages/admin/listaeventos.astro.mjs');
-const _page4 = () => import('./pages/api/ticketmaster.json.astro.mjs');
-const _page5 = () => import('./pages/api.astro.mjs');
-const _page6 = () => import('./pages/components/buscador.astro.mjs');
-const _page7 = () => import('./pages/components/buscador2.astro.mjs');
-const _page8 = () => import('./pages/components/layouts/mainlayouts.astro.mjs');
-const _page9 = () => import('./pages/components/panel.astro.mjs');
-const _page10 = () => import('./pages/components/slider.astro.mjs');
-const _page11 = () => import('./pages/dependencias/_name_.astro.mjs');
-const _page12 = () => import('./pages/dependencias.astro.mjs');
-const _page13 = () => import('./pages/eventos/_name_.astro.mjs');
-const _page14 = () => import('./pages/eventos.astro.mjs');
-const _page15 = () => import('./pages/eventos2/_name_.astro.mjs');
-const _page16 = () => import('./pages/eventos2.astro.mjs');
-const _page17 = () => import('./pages/sliderdata.astro.mjs');
-const _page18 = () => import('./pages/index.astro.mjs');
+const _page4 = () => import('./pages/admin/wysiwyg.astro.mjs');
+const _page5 = () => import('./pages/api/ticketmaster.json.astro.mjs');
+const _page6 = () => import('./pages/api.astro.mjs');
+const _page7 = () => import('./pages/components/buscador.astro.mjs');
+const _page8 = () => import('./pages/components/buscador2.astro.mjs');
+const _page9 = () => import('./pages/components/layouts/mainlayouts.astro.mjs');
+const _page10 = () => import('./pages/components/panel.astro.mjs');
+const _page11 = () => import('./pages/components/slider.astro.mjs');
+const _page12 = () => import('./pages/dependencias/_name_.astro.mjs');
+const _page13 = () => import('./pages/dependencias.astro.mjs');
+const _page14 = () => import('./pages/eventos/_name_.astro.mjs');
+const _page15 = () => import('./pages/eventos.astro.mjs');
+const _page16 = () => import('./pages/eventos2/_name_.astro.mjs');
+const _page17 = () => import('./pages/eventos2.astro.mjs');
+const _page18 = () => import('./pages/sliderdata.astro.mjs');
+const _page19 = () => import('./pages/index.astro.mjs');
 
 const pageMap = new Map([
     ["node_modules/astro/dist/assets/endpoint/node.js", _page0],
     ["src/pages/admin/AdminEventos.astro", _page1],
     ["src/pages/admin/Formulario.astro", _page2],
     ["src/pages/admin/ListaEventos.astro", _page3],
-    ["src/pages/api/ticketmaster.json.ts", _page4],
-    ["src/pages/api.astro", _page5],
-    ["src/pages/components/Buscador.astro", _page6],
-    ["src/pages/components/Buscador2.astro", _page7],
-    ["src/pages/components/Layouts/MainLayouts.astro", _page8],
-    ["src/pages/components/Panel.astro", _page9],
-    ["src/pages/components/Slider.astro", _page10],
-    ["src/pages/dependencias/[name].astro", _page11],
-    ["src/pages/dependencias.astro", _page12],
-    ["src/pages/eventos/[name].astro", _page13],
-    ["src/pages/eventos.astro", _page14],
-    ["src/pages/eventos2/[name].astro", _page15],
-    ["src/pages/eventos2.astro", _page16],
-    ["src/pages/SliderData.astro", _page17],
-    ["src/pages/index.astro", _page18]
+    ["src/pages/admin/Wysiwyg.astro", _page4],
+    ["src/pages/api/ticketmaster.json.ts", _page5],
+    ["src/pages/api.astro", _page6],
+    ["src/pages/components/Buscador.astro", _page7],
+    ["src/pages/components/Buscador2.astro", _page8],
+    ["src/pages/components/Layouts/MainLayouts.astro", _page9],
+    ["src/pages/components/Panel.astro", _page10],
+    ["src/pages/components/Slider.astro", _page11],
+    ["src/pages/dependencias/[name].astro", _page12],
+    ["src/pages/dependencias.astro", _page13],
+    ["src/pages/eventos/[name].astro", _page14],
+    ["src/pages/eventos.astro", _page15],
+    ["src/pages/eventos2/[name].astro", _page16],
+    ["src/pages/eventos2.astro", _page17],
+    ["src/pages/SliderData.astro", _page18],
+    ["src/pages/index.astro", _page19]
 ]);
 const serverIslandMap = new Map();
 

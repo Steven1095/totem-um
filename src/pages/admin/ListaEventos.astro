@@ -1,30 +1,85 @@
 ---
-import MainLayouts from "../components/Layouts/MainLayouts.astro";
+interface Event {
+  name: string;
+  image: string;
+  description: string;
+  date: string;
+  dayName: string | null;
+  dayNumber: string | null;
+  monthName: string | null;
+  hour: string | null;
+}
+const response = await fetch(import.meta.env.API_EVENTS);
+const data = await response.json();
+// console.log(data);
 
-// src/components/CrudList.astro
+// Función para obtener el nombre del día de la semana
+function getDayName(dateString: string) {
+    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'];
+    var d = new Date(dateString);
+    var dayName = days[d.getDay()];
+    return dayName; 
+}
 
-// let items = [];
+// Función para obtener el numero del día
+function getNumberDay(dateString: string) {
+    const date = new Date(dateString); // Meses en JavaScript van de 0 a 11
+    const dayNumber = date.getDate();    
+    return `${dayNumber}`;
+}
+// Función para obtener el nombre del mes
+function getMonthName(dateString: string) {
+    // Crear el objeto Date directamente a partir de la cadena completa con fecha y hora
+    const date = new Date(dateString);
+    // Verificar que la fecha sea válida antes de formatear
+    if (isNaN(date.getTime())) {
+        console.error("Fecha inválida:", dateString);
+        return "Fecha inválida";
+    }
+    // Obtener el nombre del mes en español
+    const monthName = date.toLocaleDateString('es-ES', { month: 'long' });
+    return monthName;
+}
 
-// const deleteItem = (id) => {
-//   items = items.filter(item => item.id !== id);
-// };
+// Función para convertir la hora al formato de 12 horas (AM/PM) sin cambiar la zona horaria
+function getFormatTimeTo12Hour(timeString: string) {
+  // Separar horas y minutos
+  const [hours, minutes] = timeString.split(':').map(Number);  
+  // Determinar AM o PM
+  const ampm = hours >= 12 ? 'PM' : 'AM';  
+  // Convertir la hora al formato de 12 horas
+  const hour12 = hours % 12 || 12;
+  // Formatear la hora en formato de 12 horas con AM/PM
+  return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+}
+
+const events = data.map((event: any) => ({
+    name: event.name,
+    description: event.description,
+    image: event.imagen,
+    date: event.date,
+    dayName: event.date ? getDayName(event.date) : null, 
+    monthName: event.date ? getMonthName(event.date) : null, 
+    dayNumber: event.date ? getNumberDay(event.date) : null,
+    hour: event.date ? getFormatTimeTo12Hour(event.date) : null,
+})) || [];
+console.log(events);
 ---
-
-<MainLayouts title="Lista Eventos - Totem UM">
-    <ul class="space-y-4">
-        <li class="text-gray-500">No hay elementos.</li>
-          <li class="p-4 bg-white shadow rounded-lg flex items-center justify-between">
-            <div>
-              <h3 class="text-lg font-medium">titulo evento</h3>
-              <p class="text-gray-500">description</p>
-              <time class="text-sm text-gray-400">
-                17 de septiembre a las 10:00 A.M.
-              </time>
-            </div>
-            <button class="text-red-500 hover:text-red-700">
-              Eliminar
-            </button>
-          </li>
-    </ul>
-</MainLayouts>
+<ul class="space-y-4 pt-20 pb-20">
+    <li class="text-slider-nav font-normal">No hay elementos.</li>
+    {events.map((event: Event) => (
+      <li class="p-4 bg-white shadow rounded-lg flex items-center justify-between">
+        <div>
+          <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
+          <p class="text-gray-500 w-28 truncate">{event.description}</p>
+          <time class="text-sm text-gray-400">
+            {event.dayName} {event.dayNumber} de {event.monthName} a las {event.hour}
+          </time>
+        </div>
+        <button class="text-red-500 hover:text-red-700">
+          Eliminar
+        </button>
+      </li>
+      ))}
+</ul>
 

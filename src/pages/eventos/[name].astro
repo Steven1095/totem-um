@@ -7,25 +7,21 @@ const { name } = Astro.params;
 
 interface Event {
   name: string;
-  imagen: string;
-  descripcion: string;
-  lugar: string;
-  modalidad: string;
-  moderador: string;
-  dates: {
-    start: {
-      localDate: string;
-      localTime: string;
-    };
-  };
+  image: string;
+  description: string;
+  place: string;
+  mode: string;
+  moderator: string;
+  date: string;
   url: string;
   dayName: string | null;
   monthName: string | null;
   hour: string | null;
 }
 
+const url_image_api = import.meta.env.API_EVENTS_IMG
 // Consumir el JSON de eventos
-const response = await fetch('https://autoevaluacion.umanizales.edu.co/events.json');
+const response = await fetch(import.meta.env.API_EVENTS);
 const events = await response.json();
 
 // Buscar el evento que coincida con el nombre en la URL
@@ -35,34 +31,19 @@ if (!event) {
   throw new Error('Evento no encontrado');
 }
 
-// Función para obtener el nombre del día de la semana
-function getDayName(dateString: string) {
-    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'];
-    var d = new Date(dateString);
-    var dayName = days[d.getDay()];
-    return dayName;
-}
+// Convertir la fecha en string a un objeto Date
+const eventDate = new Date(event.date);
+// Opciones para obtener el día, nombre del día, nombre del mes y el año
+const dayNumber = eventDate.getDate(); // Número del día
+const dayName = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(eventDate); // Nombre del día
+const monthName = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(eventDate); // Nombre del mes
+const year = eventDate.getFullYear(); // Año
+const fullHour = new Intl.DateTimeFormat('es-ES', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true // Formato de 12 horas con AM/PM
+}).format(eventDate);
 
-// Función para obtener el nombre del mes
-function getMonthDay(dateString: string) {
-    const [year, month, day] = dateString.split('-').map(Number);
-    const date = new Date(year, month - 1, day);
-    const monthName = date.toLocaleDateString('es-ES', { month: 'long' });
-    const dayNumber = date.getDate();
-    return `${dayNumber} de ${monthName}`;
-}
-
-// Función para convertir la hora al formato de 12 horas (AM/PM)
-function getFormatTimeTo12Hour(timeString: string) {
-  const [hours, minutes] = timeString.split(':').map(Number);
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  const hour12 = hours % 12 || 12;
-  return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-}
-
-const dayName = event.dates?.start?.localDate ? getDayName(event.dates.start.localDate) : null;
-const monthName = event.dates?.start?.localDate ? getMonthDay(event.dates.start.localDate) : null;
-const hour = event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.start.localTime) : null;
 ---
 
 <MainLayouts title={event.name}>
@@ -73,7 +54,7 @@ const hour = event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.s
         <div class="flex">
           <!-- Columna de 80% -->
           <div class="w-4/5">
-            <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">{event.name}</h2>
+            <h2 class="text-6xl text-slider-nav font-bold m-6 ml-32 text-left">{event.name}</h2>
           </div>        
           <!-- Columna de 20% -->
           <div class="w-1/5">
@@ -85,10 +66,11 @@ const hour = event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.s
       <div class="w-full flex items-center justify-center h-4/5 mt-40">    
         <div class="grid grid-cols-6 gap-4">
           <div class="col-start-2 col-span-4">
-            <img width="750px" height="400px" src={event.imagen} alt={event.name} />
+            <img width="750px" height="400px" src={`${url_image_api}${event.image}`}
+            alt={event.name} />
           </div>
           <div class="col-start-2 col-span-4">
-            <p class="text-black text-2xl font-normal">{event.descripcion}</p>
+            <p class="text-black text-2xl font-normal">{event.description}</p>
           </div>
           <div class="col-start-2 col-end-4 mt-4">
             <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Lugar del evento:</p>
@@ -99,7 +81,7 @@ const hour = event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.s
               </div>        
               <!-- Columna de 20% -->
               <div class="w-4/5">
-                <p class="text-black text-2xl font-normal">{event.lugar}</p>
+                <p class="text-black text-2xl font-normal">{event.place}</p>
               </div>
             </div>  
           </div>
@@ -112,8 +94,8 @@ const hour = event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.s
               </div>        
               <!-- Columna de 20% -->
               <div class="w-4/5">
-                <p class="text-black text-2xl font-medium">{dayName} {monthName}</p>
-                <p class="text-black text-2xl font-normal">{hour}</p>
+                <p class="text-black text-2xl font-medium"><span class="capitalize">{dayName}</span>, {dayNumber} de {monthName} de {year}</p>
+                <p class="text-black text-2xl font-normal">{fullHour}</p>
               </div>
             </div>  
           </div>
@@ -126,25 +108,25 @@ const hour = event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.s
               </div>        
               <!-- Columna de 20% -->
               <div class="w-4/5">
-                <p class="text-black text-2xl font-normal">{event.modalidad}</p>
+                <p class="text-black text-2xl font-normal">{event.mode}</p>
               </div>
             </div>  
           </div>
-          <div class="col-start-2 col-end-4 mt-4">
-            {event.moderador && (
+          <div class="col-end-8 col-span-4 mt-4">
+            {event.moderator && (
             <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Moderador:</p>
             <div class="flex mt-2">
               <!-- Columna de 80% -->
-              <div class="w-1/5 text-center">
+              <div class="w-1/5 text-center align-middle">
                 <i class="fas fa-user mt-3 text-color-iconos text-4xl"></i>
               </div>        
               <!-- Columna de 20% -->
               <div class="w-4/5">
-                <p class="text-black text-2xl font-normal">{event.moderador}</p>
+                <p class="text-black text-2xl font-normal">{event.moderator}</p>
               </div>
-              </div>
+            </div>  
             )}
-          </div>  
+          </div>
         </div>
       </div>
     </div>

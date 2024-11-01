@@ -1,9 +1,9 @@
 /* empty css                                      */
 import { c as createComponent, r as renderTemplate, d as renderComponent, m as maybeRenderHead } from '../chunks/astro/server_CqfnIhi3.mjs';
 import 'kleur/colors';
-import { $ as $$MainLayouts } from '../chunks/MainLayouts_C-YSvhFR.mjs';
-import { $ as $$Slider } from '../chunks/Slider_COi8F85x.mjs';
-import { $ as $$Buscador } from '../chunks/Buscador_Bo8ixoQR.mjs';
+import { $ as $$MainLayouts } from '../chunks/MainLayouts_C3H5KGio.mjs';
+import { $ as $$Slider } from '../chunks/Slider_CT3zWBXH.mjs';
+import { $ as $$Buscador } from '../chunks/Buscador_BamVYcJq.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Dependencias = createComponent(($$result, $$props, $$slots) => {
