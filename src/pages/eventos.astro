@@ -55,7 +55,7 @@ function getFormatTimeTo12Hour(timeString: string) {
   return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
 }
 
-const response = await fetch(import.meta.env.API_EVENTS);
+const response = await fetch(import.meta.env.PUBLIC_API_EVENTS);
 const data = await response.json();
 console.log(data);
 // const events = data.events

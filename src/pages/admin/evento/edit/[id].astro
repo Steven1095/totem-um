@@ -1,0 +1,54 @@
+---
+import MainLayouts from "../../../components/Layouts/MainLayouts.astro";
+
+
+
+interface Event {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  date: string;
+  dayName: string | null;
+  dayNumber: string | null;
+  monthName: string | null;
+  hour: string | null;
+}
+
+const { id } = Astro.params;
+const evento = await fetch(`https://api-dev.umanizales.edu.co/api/v1/module/totem-um/event/${id}`);
+if(!evento.ok || evento.status !== 200)
+{
+    return Astro.redirect("/");
+}
+const data = await evento.json();
+// const { data } : {data: Event} = await evento.json();
+// console.log(data);
+if(!data) {
+    return Astro.redirect("/");
+}
+---
+<MainLayouts title = "Editar evento - Totem UM">
+<div class="w-full absolute top-0 h-72 bg-no-repeat bg-cover bg-center p-4" style="background-image: url('/img/titulo_pagina.png');">  
+                
+    <div class="container mx-auto">
+        <h2 style="font-size: clamp(2rem, 2vw + 1.5rem, 4rem);" class="text-slider-nav font-semibold m-6 text-left">Editar eventos</h2>
+      </div>
+      <hr class="bg-botones h-2 md:h-2 lg:h-1  w-1/2 -ml-4">
+      <div class="container mx-auto px-4 sm:px-8 lg:px-20 xl:px-30 mt-8">  
+        <div class="flex gap-2">
+            <button class="bg-teal-400 text-white py-2 px-6">Editar</button>
+            <button class="bg-red-400 text-white py-2 px-6">Eliminar</button>
+        </div>      
+        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">{data.name}:</h2>
+        <ul class="w-full space-y-1 text-gray-700 list-disc list-inside dark:text-gray-600">
+                <li>{data.name}</li>
+                <li>{data.description}</li>
+                <li>{data.mode}</li>
+                <li>{data.place}</li>
+                <li>{data.date}</li>
+                <!-- <li>imagen del evento</li> -->
+            </ul>
+      </div>
+  </div>
+</MainLayouts>

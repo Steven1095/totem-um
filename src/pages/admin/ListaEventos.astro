@@ -1,5 +1,6 @@
 ---
 interface Event {
+  id: string;
   name: string;
   image: string;
   description: string;
@@ -9,11 +10,8 @@ interface Event {
   monthName: string | null;
   hour: string | null;
 }
-const response = await fetch(import.meta.env.API_EVENTS);
+const response = await fetch(import.meta.env.PUBLIC_API_EVENTS);
 const data = await response.json();
-// console.log(data);
-
-// Función para obtener el nombre del día de la semana
 function getDayName(dateString: string) {
     var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'];
     var d = new Date(dateString);
@@ -23,15 +21,13 @@ function getDayName(dateString: string) {
 
 // Función para obtener el numero del día
 function getNumberDay(dateString: string) {
-    const date = new Date(dateString); // Meses en JavaScript van de 0 a 11
+    const date = new Date(dateString); 
     const dayNumber = date.getDate();    
     return `${dayNumber}`;
 }
 // Función para obtener el nombre del mes
 function getMonthName(dateString: string) {
-    // Crear el objeto Date directamente a partir de la cadena completa con fecha y hora
     const date = new Date(dateString);
-    // Verificar que la fecha sea válida antes de formatear
     if (isNaN(date.getTime())) {
         console.error("Fecha inválida:", dateString);
         return "Fecha inválida";
@@ -43,17 +39,14 @@ function getMonthName(dateString: string) {
 
 // Función para convertir la hora al formato de 12 horas (AM/PM) sin cambiar la zona horaria
 function getFormatTimeTo12Hour(timeString: string) {
-  // Separar horas y minutos
-  const [hours, minutes] = timeString.split(':').map(Number);  
-  // Determinar AM o PM
+  const [hours, minutes] = timeString.split(':').map(Number); 
   const ampm = hours >= 12 ? 'PM' : 'AM';  
-  // Convertir la hora al formato de 12 horas
   const hour12 = hours % 12 || 12;
-  // Formatear la hora en formato de 12 horas con AM/PM
   return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
 }
 
 const events = data.map((event: any) => ({
+    id: event.id,
     name: event.name,
     description: event.description,
     image: event.imagen,
@@ -63,23 +56,89 @@ const events = data.map((event: any) => ({
     dayNumber: event.date ? getNumberDay(event.date) : null,
     hour: event.date ? getFormatTimeTo12Hour(event.date) : null,
 })) || [];
-console.log(events);
+
+const { id } = Astro.props;
+// console.log(events);
 ---
 <ul class="space-y-4 pt-20 pb-20">
-    <li class="text-slider-nav font-normal">No hay elementos.</li>
-    {events.map((event: Event) => (
-      <li class="p-4 bg-white shadow rounded-lg flex items-center justify-between">
-        <div>
-          <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
-          <p class="text-gray-500 w-28 truncate">{event.description}</p>
-          <time class="text-sm text-gray-400">
-            {event.dayName} {event.dayNumber} de {event.monthName} a las {event.hour}
-          </time>
-        </div>
-        <button class="text-red-500 hover:text-red-700">
-          Eliminar
-        </button>
-      </li>
-      ))}
+  {events.map((event: Event) => (
+    <li class="p-4 bg-white shadow rounded-lg flex items-center justify-between">
+      <div>
+        <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
+        <p class="text-gray-500 w-28 truncate">{event.description}</p>
+        <time class="text-sm text-gray-400">
+          {event.dayName} {event.dayNumber} de {event.monthName} a las {event.hour}
+        </time>
+      </div>
+      <a class="text-blue-500 hover:text-blue-700" href={`/admin/evento/edit/${event.id}`}>Editar</a>
+      <form method="delete" id="eliminarEvento">
+        <input class="hidden" type="text" name="id" id="id" value={event.id}>
+        <button type="submit" class="text-red-500 hover:text-red-700">Eliminar</button>
+      </form>
+    </li>
+  ))}
 </ul>
+<!-- Mensaje de confirmación flotante -->
+<div id="confirmationMessage2" class="fixed top-4 right-4 hidden transition-opacity duration-500 ease-in-out">
+  <div id="toast-danger" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+        </svg>
+        <span class="sr-only">Error icon</span>
+    </div>
+    <div class="ms-3 text-sm font-normal">¡El evento ha sido eliminado!</div>
+    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    </button>
+  </div>
+</div>
 
+<script>
+document.addEventListener("astro:page-load", () => {
+  const id = (document.getElementById("id") as HTMLInputElement).value;
+  const eliminarEvento = (document.getElementById("eliminarEvento") as HTMLFormElement);
+  
+  eliminarEvento.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    fetch(`https://api-dev.umanizales.edu.co/api/v1/module/totem-um/event/` + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          const confirmationMessage2 = document.getElementById("confirmationMessage2");
+          if (confirmationMessage2) {
+            confirmationMessage2.classList.remove("hidden", "opacity-0");
+            confirmationMessage2.classList.add("opacity-100");
+
+            // Mostrar el mensaje durante 3 segundos antes de recargar la página
+            setTimeout(() => {
+              confirmationMessage2.classList.add("opacity-0");
+              setTimeout(() => {
+                confirmationMessage2.classList.add("hidden");
+                // Recargar la página después de que el mensaje se haya ocultado
+                window.location.reload();
+              }, 500);
+            }, 3000);
+          } else {
+            console.error("El elemento de confirmación no existe en el DOM.");
+          }
+        } else {
+          return response.json().then(errorData => {
+            alert(`Error: ${errorData.message}`);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error al eliminar el evento:', error);
+        alert('Hubo un error al intentar eliminar el evento');
+      });
+  });
+});
+</script>

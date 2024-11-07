@@ -21,7 +21,7 @@ interface Event {
 
 const url_image_api = import.meta.env.API_EVENTS_IMG
 // Consumir el JSON de eventos
-const response = await fetch(import.meta.env.API_EVENTS);
+const response = await fetch(import.meta.env.PUBLIC_API_EVENTS);
 const events = await response.json();
 
 // Buscar el evento que coincida con el nombre en la URL
@@ -44,6 +44,26 @@ const fullHour = new Intl.DateTimeFormat('es-ES', {
   hour12: true // Formato de 12 horas con AM/PM
 }).format(eventDate);
 
+
+// Timestamp en UTC
+const utcDate = new Date(event.date);
+
+// Convertir a la hora local de Colombia (GMT-5)
+const colombiaTime = utcDate.toLocaleString("es-ES", {
+    timeZone: "America/Bogota", // Zona horaria de Colombia
+    hour12: false               // Opcional: usa formato de 24 horas
+});
+
+console.log(colombiaTime); // Muestra el resultado en GMT-5
+
+// Aquí puedes importar cualquier librería o definir variables necesarias
+// let currentTime = new Date().toLocaleTimeString();
+
+// const updateTime = () => {
+//   currentTime = new Date().toLocaleTimeString();
+// };
+
+// console.log(currentTime);
 ---
 
 <MainLayouts title={event.name}>
@@ -70,7 +90,7 @@ const fullHour = new Intl.DateTimeFormat('es-ES', {
             alt={event.name} />
           </div>
           <div class="col-start-2 col-span-4">
-            <p class="text-black text-2xl font-normal">{event.description}</p>
+            <p class="text-black text-2xl font-normal" set:html={event.description}></p>
           </div>
           <div class="col-start-2 col-end-4 mt-4">
             <p class="tag w-full text-left text-3xl font-medium text-slider-nav">Lugar del evento:</p>

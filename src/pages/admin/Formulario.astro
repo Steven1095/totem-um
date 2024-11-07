@@ -1,54 +1,40 @@
 ---
 import Wysiwyg from './Wysiwyg.astro';
 
-// const submitForm = (event) => {
-//   event.preventDefault();
-//   const formData = new FormData(event.target);
 
-//   const item = {
-//     id: Date.now(),
-//     title: formData.get('title'),
-//     description: formData.get('description'),
-//     date: formData.get('date'),
-//     time: formData.get('time'),
-//     image: formData.get('image'),
-//   };
-
-//   items.push(item); // agregar el item al array de items
-//   event.target.reset(); // resetear el formulario después de enviar
-// };
 ---
-<form x-data="formularioHandler()" @submit="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+
+<form id="eventForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6"> 
   <div>
-    <label for="name_event" class="block text-md font-medium text-slider-nav">Nombre del evento</label>
-    <input type="text" id="name_event" name="name_event" class="mt-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
+    <label for="name" class="block text-md font-medium text-slider-nav">Nombre del evento</label>
+    <input type="text" id="name" name="name" class="mt-3 pl-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
   </div>  
   <div> 
     <label for="moderator" class="block text-md font-medium text-slider-nav">Moderador</label>
-    <input type="text" id="moderator" name="moderator" class="mt-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
+    <input type="text" id="moderator" name="moderator" class="mt-3 pl-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
   </div> 
   <div>
-    <label for="location" class="block text-md font-medium text-slider-nav">Lugar</label>
-    <input type="text" id="location" name="location" class="mt-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
+    <label for="place" class="block text-md font-medium text-slider-nav">Lugar</label>
+    <input type="text" id="place" name="place" class="mt-3 pl-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
   </div> 
   <div>
     <label for="mode" class="block text-md font-medium text-slider-nav">Modalidad</label>
-    <input type="text" id="mode" name="mode" class="mt-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
+    <select name="mode" class="mt-3 pl-3 pr-1 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required>
+      <option value="Presencial">Presencial</option>
+      <option value="Virtual">Virtual</option>
+    </select>
   </div>
   <div>
     <label for="date" class="block text-md font-medium text-slider-nav">Fecha</label>
-    <input type="date" id="date" name="date" class="mt-3 pl-3 pr-1 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
-  </div>
-  <div>
-    <label for="time" class="block text-md font-medium text-slider-nav">Hora</label>
-    <input type="time" id="time" name="time" class="mt-3 pl-3 pr-1 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required />
+    
+    <input type="datetime-local" class="mt-3 pl-3 pr-1 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" name="date" required />
   </div> 
   <div class="md:col-span-2">
     <Wysiwyg />
   </div>   
   <div>
-    <label for="image" class="block text-md font-medium text-slider-nav">Imagen del evento</label>
-    <input type="file" id="image" name="image" @change="handleImageUpload"accept="image/*" class="mt-3 block w-full text-sm text-color-iconos-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-150 file:text-color-iconos hover:file:bg-gray-300" required />
+    <label for="file" class="block text-md font-medium text-slider-nav">Imagen del evento</label>
+    <input type="file" id="file" name="file" accept="image/*" class="mt-3 block w-full text-sm text-color-iconos-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-150 file:text-color-iconos hover:file:bg-gray-300" />
   </div>  
   <div class="md:col-span-2 mt-3">
     <button type="submit" class="rounded-full bg-botones text-slider-nav font-semibold py-2 px-14 hover:bg-botones-hover">
@@ -57,44 +43,78 @@ import Wysiwyg from './Wysiwyg.astro';
   </div>
 </form>
 
-<!-- <script>
-  function formularioHandler() {
-    return {
-      title: '',
-      date: '',
-      time: '',
-      description: '', // Aquí guarda el contenido del WYSIWYG
-      image: null,
+<!-- Mensaje de confirmación flotante -->
+<div id="confirmationMessage" class="fixed top-4 right-4 hidden transition-opacity duration-500 ease-in-out">
+  <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+        </svg>
+        <span class="sr-only">Check icon</span>
+    </div>
+    <div class="ms-3 text-sm font-normal">¡El evento fue creado!</div>
+    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    </button>
+</div>
+</div>
 
-      submitForm(event) {
-        event.preventDefault(); // Evita que el formulario se envíe por defecto
-
-        // Captura los datos del formulario
-        const formData = {
-          title: this.title,
-          date: this.date,
-          time: this.time,
-          description: this.description,
-          image: this.image, // Nota: las imágenes se manejarán como archivos binarios
-        };
-
-        // Convertimos los datos a JSON
-        const jsonData = JSON.stringify(formData, null, 2);
-
-        // Imprimimos el JSON en la consola
-        console.log("Datos a enviar a la API:");
-        console.log(jsonData);
-
-        // Aquí podrías enviar `jsonData` a tu API con fetch()
-      },
-
-      // Función para manejar la imagen seleccionada
-      handleImageUpload(event) {
-        const file = event.target.files[0];
-        if (file) {
-          this.image = file;
+<script>
+  async function handleSubmit(event: SubmitEvent) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement | null;
+    if (form) { // Verificación de que form no sea null
+      const formData = new FormData(form);
+      const dateValue = formData.get("date");
+      // Crear la fecha en UTC basada en el valor del formulario
+      const fechaActual = new Date(dateValue as string);
+      // Restar 5 horas a la fecha para ajustarla a GMT-5
+      fechaActual.setUTCHours(fechaActual.getUTCHours() - 5);
+      // Convertir la fecha ajustada a un formato ISO con zona horaria GMT-5
+      const año = fechaActual.getUTCFullYear();
+      const mes = String(fechaActual.getUTCMonth() + 1).padStart(2, '0');
+      const dia = String(fechaActual.getUTCDate()).padStart(2, '0');
+      const horas = String(fechaActual.getUTCHours()).padStart(2, '0');
+      const minutos = String(fechaActual.getUTCMinutes()).padStart(2, '0');
+      const segundos = String(fechaActual.getUTCSeconds()).padStart(2, '0');
+      const form_date = `${año}-${mes}-${dia}T${horas}:${minutos}:${segundos}-05:00`;
+      // console.log("Fecha ajustada en GMT-5:", form_date);
+      formData.set("date", form_date);
+      try {
+        const response = await fetch(`${import.meta.env.PUBLIC_API_EVENTS}`, {
+          method: "POST",
+          body: formData,
+        });
+        if (response.ok) {
+          // console.log("Datos enviados exitosamente");
+          form.reset();
+          const confirmationMessage = document.getElementById("confirmationMessage");
+          if (confirmationMessage) {
+            confirmationMessage.classList.remove("hidden", "opacity-0");
+            confirmationMessage.classList.add("opacity-100");
+            setTimeout(() => {
+              confirmationMessage.classList.add("opacity-0");
+              setTimeout(() => {
+                confirmationMessage.classList.add("hidden");
+                window.location.reload();
+              }, 500);
+            }, 3000);
+          } else {
+            console.error("El elemento de confirmación no existe en el DOM.");
+          }
+        } else {
+          const errorData = await response.json();
+          console.error("Error en el envío de datos", response.status, errorData);
         }
-      },
-    };
+      } catch (error) {
+        console.error("Error al enviar datos:", error);
+      }
+    } else {
+      console.error("El formulario no se encontró en el evento.");
+    }
   }
-</script> -->
+  document.getElementById("eventForm")?.addEventListener("submit", handleSubmit);
+</script>
