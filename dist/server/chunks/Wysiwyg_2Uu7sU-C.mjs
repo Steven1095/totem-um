@@ -1,5 +1,5 @@
 /* empty css                              */
-import { c as createComponent, r as renderTemplate, a as addAttribute, m as maybeRenderHead } from './astro/server_CqfnIhi3.mjs';
+import { c as createComponent, r as renderTemplate, a as addAttribute, m as maybeRenderHead } from './astro/server_7KwYiMtk.mjs';
 import 'kleur/colors';
 import 'clsx';
 
@@ -9,7 +9,7 @@ var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __f
 var _a;
 const $$Wysiwyg = createComponent(($$result, $$props, $$slots) => {
   let editorContent = "";
-  return renderTemplate(_a || (_a = __template(['<!-- Enlaces CDN de Quill --><link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">', '<div> <label for="description" class="block text-md font-medium text-slider-nav">Descripci\xF3n</label> <div id="editor" class="block w-full h-40 bg-transparent rrounded-md border-2 border-gray-400"></div> <input type="hidden" name="description"', `> </div> <script>
+  return renderTemplate(_a || (_a = __template(['<!-- Enlaces CDN de Quill --><link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">', '<div> <label for="description" class="block text-md font-medium text-slider-nav">Descripci\xF3n</label> <div id="editor" class="block w-full h-40 bg-transparent rrounded-md border-2 border-gray-400"></div> <input type="hidden" name="description" id="description"', `> </div> <script>
   document.addEventListener("DOMContentLoaded", () => {
     const toolbarOptions = [
       [{ 'header': [1, 2, 3, false] }],
@@ -34,9 +34,9 @@ const $$Wysiwyg = createComponent(($$result, $$props, $$slots) => {
     });
   });
 <\/script>`])), maybeRenderHead(), addAttribute(editorContent, "value"));
-}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/admin/Wysiwyg.astro", void 0);
+}, "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/admin/Wysiwyg.astro", void 0);
 
-const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/admin/Wysiwyg.astro";
+const $$file = "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/admin/Wysiwyg.astro";
 const $$url = "/totem-um/dist/admin/Wysiwyg";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

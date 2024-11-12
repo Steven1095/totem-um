@@ -1,5 +1,5 @@
 /* empty css                                         */
-import { c as createComponent, r as renderTemplate, b as createAstro } from '../../chunks/astro/server_CqfnIhi3.mjs';
+import { c as createComponent, r as renderTemplate, b as createAstro } from '../../chunks/astro/server_7KwYiMtk.mjs';
 import 'kleur/colors';
 import 'clsx';
 export { renderers } from '../../renderers.mjs';
@@ -44,9 +44,9 @@ const $$name = createComponent(async ($$result, $$props, $$slots) => {
     </div>
   </div> --><!-- Slider --><!-- <Slider />
 </MainLayouts> -->`;
-}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/eventos2/[name].astro", void 0);
+}, "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/eventos2/[name].astro", void 0);
 
-const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/eventos2/[name].astro";
+const $$file = "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/eventos2/[name].astro";
 const $$url = "/totem-um/dist/eventos2/[name]";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

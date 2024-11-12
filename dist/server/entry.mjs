@@ -1,7 +1,7 @@
 import { renderers } from './renderers.mjs';
-import { e as ensure404Route, d as default404Instance, D as DEFAULT_404_ROUTE, m as manifest } from './chunks/_@astrojs-manifest_DJIdE0wU.mjs';
+import { e as ensure404Route, d as default404Instance, D as DEFAULT_404_ROUTE, m as manifest } from './chunks/_@astrojs-manifest_Ap4l65_2.mjs';
 import { appendForwardSlash as appendForwardSlash$1, joinPaths, trimSlashes, fileExtension, slash, prependForwardSlash as prependForwardSlash$1, removeTrailingForwardSlash } from '@astrojs/internal-helpers/path';
-import { R as ROUTE_TYPE_HEADER, g as REROUTE_DIRECTIVE_HEADER, h as createSlotValueFromString, r as renderTemplate, d as renderComponent, D as DEFAULT_404_COMPONENT, i as renderSlotToString, j as renderJSX, k as chunkToString, l as isRenderInstruction, n as clientLocalsSymbol, o as clientAddressSymbol$1, A as ASTRO_VERSION, p as responseSentSymbol$1, q as renderPage, t as REWRITE_DIRECTIVE_HEADER_KEY, u as REWRITE_DIRECTIVE_HEADER_VALUE, v as renderEndpoint, w as REROUTABLE_STATUS_CODES } from './chunks/astro/server_CqfnIhi3.mjs';
+import { R as ROUTE_TYPE_HEADER, g as REROUTE_DIRECTIVE_HEADER, h as createSlotValueFromString, r as renderTemplate, d as renderComponent, D as DEFAULT_404_COMPONENT, i as renderSlotToString, j as renderJSX, k as chunkToString, l as isRenderInstruction, n as clientLocalsSymbol, o as clientAddressSymbol$1, A as ASTRO_VERSION, p as responseSentSymbol$1, q as renderPage, t as REWRITE_DIRECTIVE_HEADER_KEY, v as REWRITE_DIRECTIVE_HEADER_VALUE, w as renderEndpoint, x as REROUTABLE_STATUS_CODES } from './chunks/astro/server_7KwYiMtk.mjs';
 import { A as AstroError, p as i18nNoLocaleFoundInPath, R as ResponseSentError, q as MiddlewareNoDataOrNextCalled, s as MiddlewareNotAResponse, G as GetStaticPathsRequired, t as InvalidGetStaticPathsReturn, u as InvalidGetStaticPathsEntry, v as GetStaticPathsExpectedParams, w as GetStaticPathsInvalidRouteParam, P as PageNumberParamNotFound, x as NoMatchingStaticPathFound, y as PrerenderDynamicEndpointPathCollide, z as ReservedSlotName, L as LocalsNotAnObject, B as PrerenderClientAddressNotAvailable, C as ClientAddressNotAvailable, S as StaticClientAddressNotAvailable, H as RewriteWithBodyUsed, J as AstroResponseHeadersReassigned } from './chunks/astro/assets-service_B45zRF4z.mjs';
 import { serialize, parse } from 'cookie';
 import { bold, red, yellow, dim, blue } from 'kleur/colors';
@@ -2901,46 +2901,48 @@ const serverEntrypointModule = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.de
 
 const _page0 = () => import('./pages/_image.astro.mjs');
 const _page1 = () => import('./pages/admin/admineventos.astro.mjs');
-const _page2 = () => import('./pages/admin/formulario.astro.mjs');
-const _page3 = () => import('./pages/admin/listaeventos.astro.mjs');
-const _page4 = () => import('./pages/admin/wysiwyg.astro.mjs');
-const _page5 = () => import('./pages/api/ticketmaster.json.astro.mjs');
-const _page6 = () => import('./pages/api.astro.mjs');
-const _page7 = () => import('./pages/components/buscador.astro.mjs');
-const _page8 = () => import('./pages/components/buscador2.astro.mjs');
-const _page9 = () => import('./pages/components/layouts/mainlayouts.astro.mjs');
-const _page10 = () => import('./pages/components/panel.astro.mjs');
-const _page11 = () => import('./pages/components/slider.astro.mjs');
-const _page12 = () => import('./pages/dependencias/_name_.astro.mjs');
-const _page13 = () => import('./pages/dependencias.astro.mjs');
-const _page14 = () => import('./pages/eventos/_name_.astro.mjs');
-const _page15 = () => import('./pages/eventos.astro.mjs');
-const _page16 = () => import('./pages/eventos2/_name_.astro.mjs');
-const _page17 = () => import('./pages/eventos2.astro.mjs');
-const _page18 = () => import('./pages/sliderdata.astro.mjs');
-const _page19 = () => import('./pages/index.astro.mjs');
+const _page2 = () => import('./pages/admin/evento/edit/_id_.astro.mjs');
+const _page3 = () => import('./pages/admin/formulario.astro.mjs');
+const _page4 = () => import('./pages/admin/listaeventos.astro.mjs');
+const _page5 = () => import('./pages/admin/wysiwyg.astro.mjs');
+const _page6 = () => import('./pages/api/ticketmaster.json.astro.mjs');
+const _page7 = () => import('./pages/api.astro.mjs');
+const _page8 = () => import('./pages/components/buscador.astro.mjs');
+const _page9 = () => import('./pages/components/buscador2.astro.mjs');
+const _page10 = () => import('./pages/components/layouts/mainlayouts.astro.mjs');
+const _page11 = () => import('./pages/components/panel.astro.mjs');
+const _page12 = () => import('./pages/components/slider.astro.mjs');
+const _page13 = () => import('./pages/dependencias/_name_.astro.mjs');
+const _page14 = () => import('./pages/dependencias.astro.mjs');
+const _page15 = () => import('./pages/eventos/_name_.astro.mjs');
+const _page16 = () => import('./pages/eventos.astro.mjs');
+const _page17 = () => import('./pages/eventos2/_name_.astro.mjs');
+const _page18 = () => import('./pages/eventos2.astro.mjs');
+const _page19 = () => import('./pages/sliderdata.astro.mjs');
+const _page20 = () => import('./pages/index.astro.mjs');
 
 const pageMap = new Map([
     ["node_modules/astro/dist/assets/endpoint/node.js", _page0],
     ["src/pages/admin/AdminEventos.astro", _page1],
-    ["src/pages/admin/Formulario.astro", _page2],
-    ["src/pages/admin/ListaEventos.astro", _page3],
-    ["src/pages/admin/Wysiwyg.astro", _page4],
-    ["src/pages/api/ticketmaster.json.ts", _page5],
-    ["src/pages/api.astro", _page6],
-    ["src/pages/components/Buscador.astro", _page7],
-    ["src/pages/components/Buscador2.astro", _page8],
-    ["src/pages/components/Layouts/MainLayouts.astro", _page9],
-    ["src/pages/components/Panel.astro", _page10],
-    ["src/pages/components/Slider.astro", _page11],
-    ["src/pages/dependencias/[name].astro", _page12],
-    ["src/pages/dependencias.astro", _page13],
-    ["src/pages/eventos/[name].astro", _page14],
-    ["src/pages/eventos.astro", _page15],
-    ["src/pages/eventos2/[name].astro", _page16],
-    ["src/pages/eventos2.astro", _page17],
-    ["src/pages/SliderData.astro", _page18],
-    ["src/pages/index.astro", _page19]
+    ["src/pages/admin/evento/edit/[id].astro", _page2],
+    ["src/pages/admin/Formulario.astro", _page3],
+    ["src/pages/admin/ListaEventos.astro", _page4],
+    ["src/pages/admin/Wysiwyg.astro", _page5],
+    ["src/pages/api/ticketmaster.json.ts", _page6],
+    ["src/pages/api.astro", _page7],
+    ["src/pages/components/Buscador.astro", _page8],
+    ["src/pages/components/Buscador2.astro", _page9],
+    ["src/pages/components/Layouts/MainLayouts.astro", _page10],
+    ["src/pages/components/Panel.astro", _page11],
+    ["src/pages/components/Slider.astro", _page12],
+    ["src/pages/dependencias/[name].astro", _page13],
+    ["src/pages/dependencias.astro", _page14],
+    ["src/pages/eventos/[name].astro", _page15],
+    ["src/pages/eventos.astro", _page16],
+    ["src/pages/eventos2/[name].astro", _page17],
+    ["src/pages/eventos2.astro", _page18],
+    ["src/pages/SliderData.astro", _page19],
+    ["src/pages/index.astro", _page20]
 ]);
 const serverIslandMap = new Map();
 
@@ -2952,8 +2954,8 @@ const _manifest = Object.assign(manifest, {
 });
 const _args = {
     "mode": "standalone",
-    "client": "file:///C:/Users/cym_webmanager/Documents/Astro/totem_um/dist/client/",
-    "server": "file:///C:/Users/cym_webmanager/Documents/Astro/totem_um/dist/server/",
+    "client": "file:///C:/Users/ASUS/Documents/Desarrollo/totem-um/dist/client/",
+    "server": "file:///C:/Users/ASUS/Documents/Desarrollo/totem-um/dist/server/",
     "host": true,
     "port": 4321,
     "assets": "_astro"

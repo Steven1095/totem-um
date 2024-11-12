@@ -1,5 +1,5 @@
 /* empty css                              */
-import { c as createComponent, r as renderTemplate, m as maybeRenderHead, a as addAttribute } from './astro/server_CqfnIhi3.mjs';
+import { c as createComponent, r as renderTemplate, m as maybeRenderHead, a as addAttribute } from './astro/server_7KwYiMtk.mjs';
 import 'kleur/colors';
 import 'clsx';
 import scrapeIt from 'scrape-it';
@@ -44,9 +44,9 @@ Ver más
 </button> <button @click="activeSlide = (activeSlide === articles.length - 1) ? 0 : activeSlide + 1" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-botones text-white p-2 rounded-full mr-10 text-4xl w-20 h-20 items-center justify-center">
 &#10095;
 </button> <!-- Indicadores --> <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2"> <template x-for="(article, index) in articles" :key="index"> <button @click="activeSlide = index" :class="activeSlide === index ? 'bg-botones' : 'bg-gray-500'" class="w-3 h-3 rounded-full"></button> </template> </div> </div>`;
-}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/Slider.astro", void 0);
+}, "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/components/Slider.astro", void 0);
 
-const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/Slider.astro";
+const $$file = "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/components/Slider.astro";
 const $$url = "/totem-um/dist/components/Slider";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

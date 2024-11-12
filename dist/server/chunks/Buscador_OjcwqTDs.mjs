@@ -1,5 +1,5 @@
 /* empty css                              */
-import { c as createComponent, r as renderTemplate, m as maybeRenderHead } from './astro/server_CqfnIhi3.mjs';
+import { c as createComponent, r as renderTemplate, m as maybeRenderHead } from './astro/server_7KwYiMtk.mjs';
 import 'kleur/colors';
 import 'clsx';
 
@@ -16,9 +16,9 @@ const $$Buscador = createComponent(($$result, $$props, $$slots) => {
   { name: 'innovacion-y-emprendimiento', displayName: 'Innovación y Emprendimiento', icon: 'fas fa-lightbulb' },
   { name: 'biblioteca', displayName: 'Biblioteca', icon: 'fas fa-book' },
 ] }" class="w-full max-w-full mx-auto mt-8 px-4"> <div class="flex"> <input type="text" x-model="search" placeholder="Buscar..." class="w-full text-6xl p-3 border border-gray-300 rounded-xl mb-4 mt-18"> </div> <div class="flex max-h-[800px] w-full flex-col overflow-y-scroll"> <template x-for="item in items.filter(i => i.displayName.toLowerCase().includes(search.toLowerCase()))" :key="item.name"> <a :href="'/dependencias/' + encodeURIComponent(item.name)"> <button class="w-full group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5"> <div class="flex h-24 w-1/6 items-center group-hover:bg-green-200"> <p class="tag w-full text-center text-5xl font-medium text-gray-600 group-hover:text-green-900"> <i :class="'fas ' + item.icon" class="mr-2"></i> </p> </div> <div class="flex w-full flex-col items-start justify-between"> <p class="text-left text-4xl text-slider-nav font-semibold" x-text="item.displayName"></p> </div> </button> <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center item.name"> </a> </template> </div> </div>`;
-}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/Buscador.astro", void 0);
+}, "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/components/Buscador.astro", void 0);
 
-const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/Buscador.astro";
+const $$file = "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/components/Buscador.astro";
 const $$url = "/totem-um/dist/components/Buscador";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

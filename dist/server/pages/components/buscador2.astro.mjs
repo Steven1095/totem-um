@@ -1,5 +1,5 @@
 /* empty css                                         */
-import { c as createComponent, r as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CqfnIhi3.mjs';
+import { c as createComponent, r as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_7KwYiMtk.mjs';
 import 'kleur/colors';
 import 'clsx';
 export { renderers } from '../../renderers.mjs';
@@ -9,7 +9,7 @@ var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(raw || cooked.slice()) }));
 var _a;
 const $$Buscador2 = createComponent(async ($$result, $$props, $$slots) => {
-  const response = await fetch("https://autoevaluacion.umanizales.edu.co/dependencias.json");
+  const response = await fetch({"ASSETS_PREFIX": undefined, "BASE_URL": "/totem-um/dist/", "DEV": false, "MODE": "production", "PROD": true, "SITE": undefined, "SSR": true}.API_DEPENDENCIAS_URL);
   const data = await response.json();
   console.log(data);
   const dependencias = data.map((dependencia) => ({
@@ -56,8 +56,8 @@ Search
           };
         }
       </script> </div> </div>`])), maybeRenderHead());
-}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/Buscador2.astro", void 0);
-const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/components/Buscador2.astro";
+}, "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/components/Buscador2.astro", void 0);
+const $$file = "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/components/Buscador2.astro";
 const $$url = "/totem-um/dist/components/Buscador2";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

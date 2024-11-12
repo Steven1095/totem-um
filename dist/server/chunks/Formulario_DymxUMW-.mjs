@@ -1,0 +1,22 @@
+/* empty css                              */
+import { c as createComponent, r as renderTemplate, m as maybeRenderHead, d as renderComponent } from './astro/server_7KwYiMtk.mjs';
+import 'kleur/colors';
+import { $ as $$Wysiwyg } from './Wysiwyg_2Uu7sU-C.mjs';
+
+const $$Formulario = createComponent(async ($$result, $$props, $$slots) => {
+  return renderTemplate`${maybeRenderHead()}<form id="eventForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6"> <div> <label for="name" class="block text-md font-medium text-slider-nav">Nombre del evento</label> <input type="text" id="name" name="name" class="mt-3 pl-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required> </div> <div> <label for="moderator" class="block text-md font-medium text-slider-nav">Moderador</label> <input type="text" id="moderator" name="moderator" class="mt-3 pl-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required> </div> <div> <label for="place" class="block text-md font-medium text-slider-nav">Lugar</label> <input type="text" id="place" name="place" class="mt-3 pl-3 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required> </div> <div> <label for="mode" class="block text-md font-medium text-slider-nav">Modalidad</label> <select name="mode" class="mt-3 pl-3 pr-1 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" required> <option value="Presencial">Presencial</option> <option value="Virtual">Virtual</option> </select> </div> <div> <label for="date" class="block text-md font-medium text-slider-nav">Fecha</label> <input type="datetime-local" class="mt-3 pl-3 pr-1 block w-full h-10 bg-transparent rounded-md border-2 border-gray-400" name="date" required> </div> <div class="md:col-span-2"> ${renderComponent($$result, "Wysiwyg", $$Wysiwyg, {})} </div> <div> <label for="file" class="block text-md font-medium text-slider-nav">Imagen del evento</label> <input type="file" id="file" name="file" accept="image/*" class="mt-3 block w-full text-sm text-color-iconos-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-150 file:text-color-iconos hover:file:bg-gray-300"> </div> <div class="md:col-span-2 mt-3"> <button type="submit" class="rounded-full bg-botones text-slider-nav font-semibold py-2 px-14 hover:bg-botones-hover">
+Guardar
+</button> </div> </form> <!-- Mensaje de confirmación flotante --> <div id="confirmationMessage" class="fixed top-4 right-4 hidden transition-opacity duration-500 ease-in-out"> <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert"> <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"> <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"> <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"></path> </svg> <span class="sr-only">Check icon</span> </div> <div class="ms-3 text-sm font-normal">¡El evento fue creado!</div> <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close"> <span class="sr-only">Close</span> <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path> </svg> </button> </div> </div> `;
+}, "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/admin/Formulario.astro", void 0);
+
+const $$file = "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/admin/Formulario.astro";
+const $$url = "/totem-um/dist/admin/Formulario";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Formulario,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+export { $$Formulario as $, _page as _ };

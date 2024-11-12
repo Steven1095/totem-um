@@ -1,64 +1,11 @@
 ---
-interface Event {
-  id: string;
-  name: string;
-  image: string;
-  description: string;
-  date: string;
-  dayName: string | null;
-  dayNumber: string | null;
-  monthName: string | null;
-  hour: string | null;
-}
-const response = await fetch(import.meta.env.PUBLIC_API_EVENTS);
-const data = await response.json();
-function getDayName(dateString: string) {
-    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'];
-    var d = new Date(dateString);
-    var dayName = days[d.getDay()];
-    return dayName; 
-}
+/// Listar eventos desde el fetch api
+import { fetchEvents } from '../../utils/eventUtils.ts';
+import type { Event } from '../../utils/eventUtils.ts';
 
-// Función para obtener el numero del día
-function getNumberDay(dateString: string) {
-    const date = new Date(dateString); 
-    const dayNumber = date.getDate();    
-    return `${dayNumber}`;
-}
-// Función para obtener el nombre del mes
-function getMonthName(dateString: string) {
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
-        console.error("Fecha inválida:", dateString);
-        return "Fecha inválida";
-    }
-    // Obtener el nombre del mes en español
-    const monthName = date.toLocaleDateString('es-ES', { month: 'long' });
-    return monthName;
-}
-
-// Función para convertir la hora al formato de 12 horas (AM/PM) sin cambiar la zona horaria
-function getFormatTimeTo12Hour(timeString: string) {
-  const [hours, minutes] = timeString.split(':').map(Number); 
-  const ampm = hours >= 12 ? 'PM' : 'AM';  
-  const hour12 = hours % 12 || 12;
-  return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-}
-
-const events = data.map((event: any) => ({
-    id: event.id,
-    name: event.name,
-    description: event.description,
-    image: event.imagen,
-    date: event.date,
-    dayName: event.date ? getDayName(event.date) : null, 
-    monthName: event.date ? getMonthName(event.date) : null, 
-    dayNumber: event.date ? getNumberDay(event.date) : null,
-    hour: event.date ? getFormatTimeTo12Hour(event.date) : null,
-})) || [];
-
+const events: Event[] = await fetchEvents();
 const { id } = Astro.props;
-// console.log(events);
+
 ---
 <ul class="space-y-4 pt-20 pb-20">
   {events.map((event: Event) => (
@@ -97,6 +44,13 @@ const { id } = Astro.props;
   </div>
 </div>
 
+{/* <script>
+  import { initDeleteEvent } from '../../utils/deleteEvent.js';
+
+  document.addEventListener("astro:page-load", () => {
+    initDeleteEvent();
+  });
+</script> */}
 <script>
 document.addEventListener("astro:page-load", () => {
   const id = (document.getElementById("id") as HTMLInputElement).value;

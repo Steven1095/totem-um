@@ -2,68 +2,20 @@
 import MainLayouts from '../components/Layouts/MainLayouts.astro';
 import Slider from '../components/Slider.astro';
 
-// Obtener el parámetro dinámico de la URL (nombre del evento)
+/// Listar cada evento desde el fetch api
+import { fetchEventByName } from '../../utils/eventDetailsUtils';
+import type { Event } from '../../utils/eventDetailsUtils';
+
+// Parámetro dinámico de la URL (nombre del evento)
 const { name } = Astro.params;
 
-interface Event {
-  name: string;
-  image: string;
-  description: string;
-  place: string;
-  mode: string;
-  moderator: string;
-  date: string;
-  url: string;
-  dayName: string | null;
-  monthName: string | null;
-  hour: string | null;
+// Validar si el nombre existe
+if (!name) {
+  throw new Error('El nombre del evento no está especificado en la URL');
 }
 
-const url_image_api = import.meta.env.API_EVENTS_IMG
-// Consumir el JSON de eventos
-const response = await fetch(import.meta.env.PUBLIC_API_EVENTS);
-const events = await response.json();
-
-// Buscar el evento que coincida con el nombre en la URL
-const event = events.find((e: any) => e.name.replace(/\s+/g, '-').toLowerCase() === name);
-
-if (!event) {
-  throw new Error('Evento no encontrado');
-}
-
-// Convertir la fecha en string a un objeto Date
-const eventDate = new Date(event.date);
-// Opciones para obtener el día, nombre del día, nombre del mes y el año
-const dayNumber = eventDate.getDate(); // Número del día
-const dayName = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(eventDate); // Nombre del día
-const monthName = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(eventDate); // Nombre del mes
-const year = eventDate.getFullYear(); // Año
-const fullHour = new Intl.DateTimeFormat('es-ES', {
-  hour: '2-digit',
-  minute: '2-digit',
-  hour12: true // Formato de 12 horas con AM/PM
-}).format(eventDate);
-
-
-// Timestamp en UTC
-const utcDate = new Date(event.date);
-
-// Convertir a la hora local de Colombia (GMT-5)
-const colombiaTime = utcDate.toLocaleString("es-ES", {
-    timeZone: "America/Bogota", // Zona horaria de Colombia
-    hour12: false               // Opcional: usa formato de 24 horas
-});
-
-console.log(colombiaTime); // Muestra el resultado en GMT-5
-
-// Aquí puedes importar cualquier librería o definir variables necesarias
-// let currentTime = new Date().toLocaleTimeString();
-
-// const updateTime = () => {
-//   currentTime = new Date().toLocaleTimeString();
-// };
-
-// console.log(currentTime);
+// Obtener el evento con la función importada
+const event = await fetchEventByName(name);
 ---
 
 <MainLayouts title={event.name}>
@@ -86,7 +38,7 @@ console.log(colombiaTime); // Muestra el resultado en GMT-5
       <div class="w-full flex items-center justify-center h-4/5 mt-40">    
         <div class="grid grid-cols-6 gap-4">
           <div class="col-start-2 col-span-4">
-            <img width="750px" height="400px" src={`${url_image_api}${event.image}`}
+            <img width="750px" height="400px" src={`${event.url_image_api}${event.image}`}
             alt={event.name} />
           </div>
           <div class="col-start-2 col-span-4">
@@ -114,8 +66,8 @@ console.log(colombiaTime); // Muestra el resultado en GMT-5
               </div>        
               <!-- Columna de 20% -->
               <div class="w-4/5">
-                <p class="text-black text-2xl font-medium"><span class="capitalize">{dayName}</span>, {dayNumber} de {monthName} de {year}</p>
-                <p class="text-black text-2xl font-normal">{fullHour}</p>
+                <p class="text-black text-2xl font-medium"><span class="capitalize">{event.dayName}</span>, {event.dayNumber} de {event.monthName} de {event.year}</p>
+                <p class="text-black text-2xl font-normal">{event.fullHour}</p>
               </div>
             </div>  
           </div>

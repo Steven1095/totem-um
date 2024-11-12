@@ -1,8 +1,8 @@
 /* empty css                                      */
-import { c as createComponent, r as renderTemplate, d as renderComponent, m as maybeRenderHead, a as addAttribute } from '../chunks/astro/server_CqfnIhi3.mjs';
+import { c as createComponent, r as renderTemplate, d as renderComponent, m as maybeRenderHead, a as addAttribute } from '../chunks/astro/server_7KwYiMtk.mjs';
 import 'kleur/colors';
-import { $ as $$MainLayouts } from '../chunks/MainLayouts_C3H5KGio.mjs';
-import { $ as $$Slider } from '../chunks/Slider_CT3zWBXH.mjs';
+import { $ as $$MainLayouts } from '../chunks/MainLayouts_xRpi3O1K.mjs';
+import { $ as $$Slider } from '../chunks/Slider_P5nrNp0i.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Eventos = createComponent(async ($$result, $$props, $$slots) => {
@@ -12,12 +12,19 @@ const $$Eventos = createComponent(async ($$result, $$props, $$slots) => {
     var dayName = days[d.getDay()];
     return dayName;
   }
-  function getMonthDay(dateString) {
-    const [year, month, day] = dateString.split("-").map(Number);
-    const date = new Date(year, month - 1, day);
-    const monthName = date.toLocaleDateString("es-ES", { month: "long" });
+  function getNumberDay(dateString) {
+    const date = new Date(dateString);
     const dayNumber = date.getDate();
-    return `${dayNumber} de ${monthName}`;
+    return `${dayNumber}`;
+  }
+  function getMonthName(dateString) {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      console.error("Fecha inválida:", dateString);
+      return "Fecha inválida";
+    }
+    const monthName = date.toLocaleDateString("es-ES", { month: "long" });
+    return monthName;
   }
   function getFormatTimeTo12Hour(timeString) {
     const [hours, minutes] = timeString.split(":").map(Number);
@@ -25,22 +32,23 @@ const $$Eventos = createComponent(async ($$result, $$props, $$slots) => {
     const hour12 = hours % 12 || 12;
     return `${hour12}:${minutes.toString().padStart(2, "0")} ${ampm}`;
   }
-  const response = await fetch("https://autoevaluacion.umanizales.edu.co/events.json");
+  const response = await fetch({"ASSETS_PREFIX": undefined, "BASE_URL": "/totem-um/dist/", "DEV": false, "MODE": "production", "PROD": true, "SITE": undefined, "SSR": true}.PUBLIC_API_EVENTS);
   const data = await response.json();
   console.log(data);
   const events = data.map((event) => ({
     name: event.name,
     image: event.imagen,
-    dates: event.dates?.start?.localDate,
-    dayName: event.dates?.start?.localDate ? getDayName(event.dates.start.localDate) : null,
-    monthName: event.dates?.start?.localDate ? getMonthDay(event.dates.start.localDate) : null,
-    hour: event.dates?.start?.localTime ? getFormatTimeTo12Hour(event.dates.start.localTime) : null
+    date: event.date,
+    dayName: event.date ? getDayName(event.date) : null,
+    monthName: event.date ? getMonthName(event.date) : null,
+    dayNumber: event.date ? getNumberDay(event.date) : null,
+    hour: event.date ? getFormatTimeTo12Hour(event.date) : null
   })) || [];
   console.log(events);
-  return renderTemplate`${renderComponent($$result, "MainLayouts", $$MainLayouts, { "title": "Eventos - UManizales Totem" }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<div class="flex flex-1"> <div class="w-full relative bg-white"> <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('/img/titulo_pagina.png');"> <div class="grid grid-cols-2 gap-2"> <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Eventos</h2> <a href="../../" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><img class="ml-80 mt-2" src="https://umanizales.edu.co/sites/default/files/2024-08/image.png" width="100" height="100"></a> </div> <hr class="bg-botones h-3 w-1/2 -ml-4"> </div> <!-- Lista de eventos --> <div class="flex items-center justify-center h-full"> <div class="grid grid-cols-1 w-10/12 mt-32"> <div class="mt-10"> <div class="flex max-h-[1000px] w-full flex-col overflow-y-scroll"> ${events.map((event) => renderTemplate`<button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5"> <div class="flex h-24 w-1/6 items-end text-black group-hover:bg-green-200"> <p class="tag w-full text-center text-1xl font-medium text-gray-700 group-hover:text-green-900"> <label class="text-slider-nav" style="text-transform: capitalize;">${event.dayName}</label><br><label style="color: #802f00;">${event.monthName}</label> <br><label class="text-botones">${event.hour}</label> </p> </div> <div class="flex w-full flex-col items-start justify-between"> <a${addAttribute(`/eventos/${event.name.replace(/\s+/g, "-").toLowerCase()}`, "href")}> <p class="text-left text-4xl text-slider-nav font-semibold">${event.name}</p> </a> </div> </button>
+  return renderTemplate`${renderComponent($$result, "MainLayouts", $$MainLayouts, { "title": "Eventos - UManizales Totem" }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<div class="flex flex-1"> <div class="w-full relative bg-white"> <div class="w-full absolute top-0 h-72 bg-cover bg-center p-4" style="background: url('/img/titulo_pagina.png');"> <div class="grid grid-cols-2 gap-2"> <h2 class="text-7xl text-slider-nav font-bold m-6 ml-32 text-left">Eventos</h2> <a href="../../" class="text-right text-botones hover:text-botones-hover mr-12 m-5 text-8xl"><img class="ml-80 mt-2" src="https://umanizales.edu.co/sites/default/files/2024-08/image.png" width="100" height="100"></a> </div> <hr class="bg-botones h-3 w-1/2 -ml-4"> </div> <!-- Lista de eventos --> <div class="flex items-center justify-center h-full"> <div class="grid grid-cols-1 w-10/12 mt-32"> <div class="mt-10"> <div class="flex max-h-[1000px] w-full flex-col overflow-y-scroll"> ${events.map((event) => renderTemplate`<button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100 mt-5"> <div class="flex h-24 w-1/6 items-end text-black group-hover:bg-green-200"> <p class="tag w-full text-center text-1xl font-medium text-gray-700 group-hover:text-green-900"> <label class="text-slider-nav" style="text-transform: capitalize;">${event.dayName}</label><br><label style="color: #802f00;">${event.dayNumber} de ${event.monthName}</label> <br><label class="text-botones">${event.hour}</label> </p> </div> <div class="flex w-full flex-col items-start justify-between"> <a${addAttribute(`/eventos/${event.name.replace(/\s+/g, "-").toLowerCase()}`, "href")}> <p class="text-left text-4xl text-slider-nav font-semibold">${event.name}</p> </a> </div> </button>
                                 <hr class="bg-yellow-500 h-1 w-1/2 -ml-28 items-center">`)} <br> </div> </div> </div> </div> </div> </div>  ${renderComponent($$result2, "Slider", $$Slider, {})} ` })}`;
-}, "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/eventos.astro", void 0);
-const $$file = "C:/Users/cym_webmanager/Documents/Astro/totem_um/src/pages/eventos.astro";
+}, "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/eventos.astro", void 0);
+const $$file = "C:/Users/ASUS/Documents/Desarrollo/totem-um/src/pages/eventos.astro";
 const $$url = "/totem-um/dist/eventos";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

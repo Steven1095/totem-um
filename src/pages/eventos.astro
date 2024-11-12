@@ -2,73 +2,13 @@
 // src/pages/eventos.astro
 import MainLayouts from './components/Layouts/MainLayouts.astro';
 import Slider from './components/Slider.astro';
-// export const prerender = false;
 
-interface Event {
-  name: string;
-  image: string;
-  descripcion: string;
-  date: string;
-  dayName: string | null;
-  dayNumber: string | null;
-  monthName: string | null;
-  hour: string | null;
-}
+/// Listar eventos desde el fetch api
+import { fetchEvents } from '../utils/eventUtils.ts';
+import type { Event } from '../utils/eventUtils.ts';
 
-// Función para obtener el nombre del día de la semana
-function getDayName(dateString: string) {
-    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'];
-    var d = new Date(dateString);
-    var dayName = days[d.getDay()];
-    return dayName; 
-}
-
-// Función para obtener el numero del día
-function getNumberDay(dateString: string) {
-    const date = new Date(dateString); // Meses en JavaScript van de 0 a 11
-    const dayNumber = date.getDate();    
-    return `${dayNumber}`;
-}
-// Función para obtener el nombre del mes
-function getMonthName(dateString: string) {
-    // Crear el objeto Date directamente a partir de la cadena completa con fecha y hora
-    const date = new Date(dateString);
-    // Verificar que la fecha sea válida antes de formatear
-    if (isNaN(date.getTime())) {
-        console.error("Fecha inválida:", dateString);
-        return "Fecha inválida";
-    }
-    // Obtener el nombre del mes en español
-    const monthName = date.toLocaleDateString('es-ES', { month: 'long' });
-    return monthName;
-}
-
-// Función para convertir la hora al formato de 12 horas (AM/PM) sin cambiar la zona horaria
-function getFormatTimeTo12Hour(timeString: string) {
-  // Separar horas y minutos
-  const [hours, minutes] = timeString.split(':').map(Number);  
-  // Determinar AM o PM
-  const ampm = hours >= 12 ? 'PM' : 'AM';  
-  // Convertir la hora al formato de 12 horas
-  const hour12 = hours % 12 || 12;
-  // Formatear la hora en formato de 12 horas con AM/PM
-  return `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-}
-
-const response = await fetch(import.meta.env.PUBLIC_API_EVENTS);
-const data = await response.json();
-console.log(data);
-// const events = data.events
-const events = data.map((event: any) => ({
-    name: event.name,
-    image: event.imagen,
-    date: event.date,
-    dayName: event.date ? getDayName(event.date) : null, 
-    monthName: event.date ? getMonthName(event.date) : null, 
-    dayNumber: event.date ? getNumberDay(event.date) : null,
-    hour: event.date ? getFormatTimeTo12Hour(event.date) : null,
-})) || [];
-console.log(events);
+const events: Event[] = await fetchEvents();
+const { id } = Astro.props;
 ---
 
 <MainLayouts title = "Eventos - UManizales Totem">
