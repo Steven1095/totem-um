@@ -6,22 +6,44 @@ import type { Event } from '../../utils/eventUtils.ts';
 const events: Event[] = await fetchEvents();
 const { id } = Astro.props;
 
+const url_image_api = import.meta.env.API_EVENTS_IMG;
+
+/// Declaro de manera global la inicialización del metodo de borrar evento
+declare global {
+  interface Window {
+    deleteEvent: (id: string) => Promise<void>;
+  }
+}
+
 ---
 <ul class="space-y-4 pt-20 pb-20">
   {events.map((event: Event) => (
     <li class="p-4 bg-white shadow rounded-lg flex items-center justify-between">
-      <div>
-        <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
-        <p class="text-gray-500 w-28 truncate">{event.description}</p>
-        <time class="text-sm text-gray-400">
-          {event.dayName} {event.dayNumber} de {event.monthName} a las {event.hour}
-        </time>
+      <!-- Contenedor de la imagen y la información del evento -->
+      <div class="flex items-center space-x-4">
+        <!-- Imagen del evento -->
+        <img src={`${url_image_api}${event.image}`} alt={event.name} class="w-32 h-28 object-cover bg-center" />
+
+        <!-- Información del evento -->
+        <div>
+          <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
+          <p class="text-gray-500 w-28 truncate" set:html={event.description}></p>
+          <time class="text-sm text-gray-400">
+            {event.dayName} {event.dayNumber} de {event.monthName} a las {event.hour}
+          </time>
+        </div>
       </div>
-      <a class="text-blue-500 hover:text-blue-700" href={`/admin/evento/edit/${event.id}`}>Editar</a>
-      <form method="delete" id="eliminarEvento">
-        <input class="hidden" type="text" name="id" id="id" value={event.id}>
-        <button type="submit" class="text-red-500 hover:text-red-700">Eliminar</button>
-      </form>
+      <!-- Botones de acción alineados a la derecha -->
+      <div class="flex space-x-4">
+        <!-- Botón de Editar -->
+        <a href={`/admin/evento/edit/${event.id}`} class="text-blue-500 hover:text-blue-700">
+          <i class="fas fa-edit"></i> <!-- Icono de editar -->
+        </a>
+        <!-- Botón de Eliminar -->
+        <button onclick={`deleteEvent('${event.id}')`} type="button" class="text-red-500 hover:text-red-700">
+          <i class="fas fa-trash-alt"></i> <!-- Icono de eliminar -->
+        </button>
+      </div>
     </li>
   ))}
 </ul>
@@ -44,39 +66,21 @@ const { id } = Astro.props;
   </div>
 </div>
 
-{/* <script>
-  import { initDeleteEvent } from '../../utils/deleteEvent.js';
-
-  document.addEventListener("astro:page-load", () => {
-    initDeleteEvent();
-  });
-</script> */}
 <script>
-document.addEventListener("astro:page-load", () => {
-  const id = (document.getElementById("id") as HTMLInputElement).value;
-  const eliminarEvento = (document.getElementById("eliminarEvento") as HTMLFormElement);
-  
-  eliminarEvento.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    fetch(`https://api-dev.umanizales.edu.co/api/v1/module/totem-um/event/` + id, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => {
+  window.deleteEvent = async function (id:string) {
+    try {
+        const response = await fetch(`https://api-dev.umanizales.edu.co/api/v1/module/totem-um/event/${id}`, {
+            method: 'DELETE',
+        });
         if (response.ok) {
           const confirmationMessage2 = document.getElementById("confirmationMessage2");
           if (confirmationMessage2) {
             confirmationMessage2.classList.remove("hidden", "opacity-0");
             confirmationMessage2.classList.add("opacity-100");
-
-            // Mostrar el mensaje durante 3 segundos antes de recargar la página
             setTimeout(() => {
               confirmationMessage2.classList.add("opacity-0");
               setTimeout(() => {
                 confirmationMessage2.classList.add("hidden");
-                // Recargar la página después de que el mensaje se haya ocultado
                 window.location.reload();
               }, 500);
             }, 3000);
@@ -84,15 +88,10 @@ document.addEventListener("astro:page-load", () => {
             console.error("El elemento de confirmación no existe en el DOM.");
           }
         } else {
-          return response.json().then(errorData => {
-            alert(`Error: ${errorData.message}`);
-          });
+            console.error('Error al eliminar el evento');
         }
-      })
-      .catch(error => {
-        console.error('Error al eliminar el evento:', error);
-        alert('Hubo un error al intentar eliminar el evento');
-      });
-  });
-});
+    } catch (error) {
+        console.error('Error:', error);
+    }
+  }
 </script>
