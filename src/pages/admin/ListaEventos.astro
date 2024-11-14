@@ -12,7 +12,7 @@ const url_image_api = import.meta.env.API_EVENTS_IMG;
 declare global {
   interface Window {
     deleteEvent: (id: string) => Promise<void>;
-  }
+  }  
 }
 
 ---
@@ -71,110 +71,12 @@ declare global {
 </div>
 
 <script>
-  window.deleteEvent = async function (id:string) {
-    try {
-        const response = await fetch(`https://api-dev.umanizales.edu.co/api/v1/module/totem-um/event/${id}`, {
-            method: 'DELETE',
-        });
-        if (response.ok) {
-          const confirmationMessage2 = document.getElementById("confirmationMessage2");
-          if (confirmationMessage2) {
-            confirmationMessage2.classList.remove("hidden", "opacity-0");
-            confirmationMessage2.classList.add("opacity-100");
-            setTimeout(() => {
-              confirmationMessage2.classList.add("opacity-0");
-              setTimeout(() => {
-                confirmationMessage2.classList.add("hidden");
-                window.location.reload();
-              }, 500);
-            }, 3000);
-          } else {
-            console.error("El elemento de confirmación no existe en el DOM.");
-          }
-        } else {
-            console.error('Error al eliminar el evento');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-  }
-</script>
+  /// Ejecuta el código de paginación de eventos
+  const eventsPerPage = 4;
+  import { initializePagination } from '../../utils/pagination.ts';
+  initializePagination(eventsPerPage);
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const eventsPerPage = 5;
-    const eventItems = document.querySelectorAll(".event-item");
-    const totalPages = Math.ceil(eventItems.length / eventsPerPage);
-    const paginationContainer = (document.getElementById("pagination") as HTMLElement);
-
-    let currentPage = 1;
-
-    function renderPagination() {
-      paginationContainer.innerHTML = ""; // Limpiar la paginación antes de renderizar
-
-      // Botón de "Anterior"
-      const prevButton = document.createElement("button");
-      prevButton.innerHTML = "⟨"; // Símbolo de flecha izquierda
-      prevButton.className = `flex items-center justify-center text-lg font-black ${
-        currentPage === 1 ? "text-gray-400 cursor-not-allowed" : "text-botones cursor-pointer"
-      }`;
-      prevButton.disabled = currentPage === 1; // Deshabilitar el botón si estamos en la primera página
-
-
-      prevButton.addEventListener("click", () => {
-        if (currentPage > 1) {
-          currentPage--;
-          displayEvents();
-          renderPagination(); // Asegurarse de actualizar la paginación
-        }
-      });
-      paginationContainer.appendChild(prevButton);
-
-      // Botones de números de página
-      for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement("button");
-        pageButton.textContent = i.toString(); // Convertimos `i` a cadena
-        pageButton.className = `px-3 py-1 rounded-full ${
-          i === currentPage ? "bg-botones text-slider-nav font-semibold" : "text-slider-nav font-semibold" 
-        } cursor-pointer`;
-        pageButton.addEventListener("click", () => {
-          currentPage = i;
-          displayEvents();
-          renderPagination(); // Asegurarse de actualizar la paginación
-        });
-        paginationContainer.appendChild(pageButton);
-    }
-
-    // Botón de "Siguiente"
-    const nextButton = document.createElement("button");
-    nextButton.textContent = "⟩";
-    nextButton.className = `flex items-center justify-center text-lg font-black ${
-      currentPage === totalPages ? "text-gray-400 cursor-not-allowed" : "text-botones cursor-pointer"
-    }`;
-    nextButton.disabled = currentPage === totalPages; // Deshabilitar el botón si estamos en la última página
-    nextButton.addEventListener("click", () => {
-      if (currentPage < totalPages) {
-        currentPage++;
-        displayEvents();
-        renderPagination(); // Asegurarse de actualizar la paginación
-      }
-    });
-    paginationContainer.appendChild(nextButton);
-  }
-
-  function displayEvents() {
-    const start = (currentPage - 1) * eventsPerPage;
-    const end = start + eventsPerPage;
-
-    eventItems.forEach((item, index) => {
-        const eventItem = item as HTMLElement;
-        eventItem.style.display = index >= start && index < end ? "flex" : "none";
-    });
-  }
-
-  // Inicializar el paginador y mostrar la primera página
-  renderPagination();
-  displayEvents();
-});
-
+  /// Ejecuta el código para eliminar eventos
+  import { deleteEvent } from '../../utils/deleteEvent.ts';
+  window.deleteEvent = deleteEvent;
 </script>
