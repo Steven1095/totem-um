@@ -16,37 +16,41 @@ declare global {
 }
 
 ---
-<ul class="space-y-4 pt-20 pb-20">
-  {events.map((event: Event) => (
-    <li class="p-4 bg-white shadow rounded-lg flex items-center justify-between">
-      <!-- Contenedor de la imagen y la información del evento -->
-      <div class="flex items-center space-x-4">
-        <!-- Imagen del evento -->
-        <img src={`${url_image_api}${event.image}`} alt={event.name} class="w-32 h-28 object-cover bg-center" />
+<div id="event-list">
+  <ul id="event-items" class="space-y-4 pt-20 pb-20">
+    {events.map((event: Event) => (
+      <li data-index="0" class="event-item p-4 bg-white shadow rounded-lg flex items-center justify-between">
+        <!-- Contenedor de la imagen y la información del evento -->
+        <div class="flex items-center space-x-4">
+          <!-- Imagen del evento -->
+          <img src={`${url_image_api}${event.image}`} alt={event.name} class="w-32 h-28 object-cover bg-center" />
 
-        <!-- Información del evento -->
-        <div>
-          <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
-          <p class="text-gray-500 w-28 truncate" set:html={event.description}></p>
-          <time class="text-sm text-gray-400">
-            {event.dayName} {event.dayNumber} de {event.monthName} a las {event.hour}
-          </time>
+          <!-- Información del evento -->
+          <div>
+            <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
+            <p class="text-gray-500 w-28 truncate" set:html={event.description}></p>
+            <time class="text-sm text-gray-400">
+              {event.dayName} {event.dayNumber} de {event.monthName} a las {event.hour}
+            </time>
+          </div>
         </div>
-      </div>
-      <!-- Botones de acción alineados a la derecha -->
-      <div class="flex space-x-4">
-        <!-- Botón de Editar -->
-        <a href={`/admin/evento/edit/${event.id}`} class="text-blue-500 hover:text-blue-700">
-          <i class="fas fa-edit"></i> <!-- Icono de editar -->
-        </a>
-        <!-- Botón de Eliminar -->
-        <button onclick={`deleteEvent('${event.id}')`} type="button" class="text-red-500 hover:text-red-700">
-          <i class="fas fa-trash-alt"></i> <!-- Icono de eliminar -->
-        </button>
-      </div>
-    </li>
-  ))}
-</ul>
+        <!-- Botones de acción alineados a la derecha -->
+        <div class="flex space-x-4">
+          <!-- Botón de Editar -->
+          <a href={`/admin/evento/edit/${event.id}`} class="text-blue-500 hover:text-blue-700">
+            <i class="fas fa-edit"></i> <!-- Icono de editar -->
+          </a>
+          <!-- Botón de Eliminar -->
+          <button onclick={`deleteEvent('${event.id}')`} type="button" class="text-red-500 hover:text-red-700">
+            <i class="fas fa-trash-alt"></i> <!-- Icono de eliminar -->
+          </button>
+        </div>
+      </li>
+    ))}
+  </ul>
+  <!-- Contenedor de paginación -->
+  <div id="pagination" class="flex justify-center space-x-2 pb-16"></div>
+</div>
 <!-- Mensaje de confirmación flotante -->
 <div id="confirmationMessage2" class="fixed top-4 right-4 hidden transition-opacity duration-500 ease-in-out">
   <div id="toast-danger" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
@@ -94,4 +98,83 @@ declare global {
         console.error('Error:', error);
     }
   }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const eventsPerPage = 5;
+    const eventItems = document.querySelectorAll(".event-item");
+    const totalPages = Math.ceil(eventItems.length / eventsPerPage);
+    const paginationContainer = (document.getElementById("pagination") as HTMLElement);
+
+    let currentPage = 1;
+
+    function renderPagination() {
+      paginationContainer.innerHTML = ""; // Limpiar la paginación antes de renderizar
+
+      // Botón de "Anterior"
+      const prevButton = document.createElement("button");
+      prevButton.innerHTML = "⟨"; // Símbolo de flecha izquierda
+      prevButton.className = `flex items-center justify-center text-lg font-black ${
+        currentPage === 1 ? "text-gray-400 cursor-not-allowed" : "text-botones cursor-pointer"
+      }`;
+      prevButton.disabled = currentPage === 1; // Deshabilitar el botón si estamos en la primera página
+
+
+      prevButton.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          displayEvents();
+          renderPagination(); // Asegurarse de actualizar la paginación
+        }
+      });
+      paginationContainer.appendChild(prevButton);
+
+      // Botones de números de página
+      for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement("button");
+        pageButton.textContent = i.toString(); // Convertimos `i` a cadena
+        pageButton.className = `px-3 py-1 rounded-full ${
+          i === currentPage ? "bg-botones text-slider-nav font-semibold" : "text-slider-nav font-semibold" 
+        } cursor-pointer`;
+        pageButton.addEventListener("click", () => {
+          currentPage = i;
+          displayEvents();
+          renderPagination(); // Asegurarse de actualizar la paginación
+        });
+        paginationContainer.appendChild(pageButton);
+    }
+
+    // Botón de "Siguiente"
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "⟩";
+    nextButton.className = `flex items-center justify-center text-lg font-black ${
+      currentPage === totalPages ? "text-gray-400 cursor-not-allowed" : "text-botones cursor-pointer"
+    }`;
+    nextButton.disabled = currentPage === totalPages; // Deshabilitar el botón si estamos en la última página
+    nextButton.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        displayEvents();
+        renderPagination(); // Asegurarse de actualizar la paginación
+      }
+    });
+    paginationContainer.appendChild(nextButton);
+  }
+
+  function displayEvents() {
+    const start = (currentPage - 1) * eventsPerPage;
+    const end = start + eventsPerPage;
+
+    eventItems.forEach((item, index) => {
+        const eventItem = item as HTMLElement;
+        eventItem.style.display = index >= start && index < end ? "flex" : "none";
+    });
+  }
+
+  // Inicializar el paginador y mostrar la primera página
+  renderPagination();
+  displayEvents();
+});
+
 </script>
