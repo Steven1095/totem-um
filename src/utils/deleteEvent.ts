@@ -1,4 +1,3 @@
-// Definimos la función deleteEvent con tipado para el parámetro 'id'
 export async function deleteEvent(id: string): Promise<void> {
   try {
     const response = await fetch(`https://api-dev.umanizales.edu.co/api/v1/module/totem-um/event/${id}`, {

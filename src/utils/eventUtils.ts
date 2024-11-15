@@ -5,7 +5,11 @@ interface Event {
     name: string;
     image: string;
     description: string;
+    moderator: string;
+    place: string;
+    mode: string;
     date: string;
+    file: string;
     dayName: string | null;
     dayNumber: string | null;
     monthName: string | null;
@@ -23,6 +27,10 @@ interface Event {
           id: event.id,
           name: event.name,
           description: event.description,
+          moderator: event.moderator,
+          place: event.place,
+          mode: event.mode,
+          file: event.file,
           image: event.image,
           date: event.date,
           dayName: event.date 

@@ -4,7 +4,6 @@ import { fetchEvents } from '../../utils/eventUtils.ts';
 import type { Event } from '../../utils/eventUtils.ts';
 
 const events: Event[] = await fetchEvents();
-const { id } = Astro.props;
 
 const url_image_api = import.meta.env.API_EVENTS_IMG;
 
@@ -12,6 +11,16 @@ const url_image_api = import.meta.env.API_EVENTS_IMG;
 declare global {
   interface Window {
     deleteEvent: (id: string) => Promise<void>;
+    openEditModal: (
+      eventId: string, 
+      eventName: string, 
+      eventDescription: string,
+      eventModerator: string,
+      eventPlace: string,
+      eventMode: string,
+      eventDate: string,
+      eventFile: string
+    ) => void;
   }  
 }
 
@@ -24,7 +33,6 @@ declare global {
         <div class="flex items-center space-x-4">
           <!-- Imagen del evento -->
           <img src={`${url_image_api}${event.image}`} alt={event.name} class="w-32 h-28 object-cover bg-center" />
-
           <!-- Información del evento -->
           <div>
             <h3 class="text-slider-nav font-semibold text-lg">{event.name}</h3>
@@ -34,15 +42,22 @@ declare global {
             </time>
           </div>
         </div>
-        <!-- Botones de acción alineados a la derecha -->
         <div class="flex space-x-4">
-          <!-- Botón de Editar -->
-          <a href={`/admin/evento/edit/${event.id}`} class="text-blue-500 hover:text-blue-700">
-            <i class="fas fa-edit"></i> <!-- Icono de editar -->
+          <a 
+            class="text-blue-500 hover:text-blue-700 cursor-pointer"
+            onclick={`openEditModal(
+              '${event.id}', 
+              '${event.name}', 
+              '${event.description}', 
+              '${event.moderator}', 
+              '${event.place}', 
+              '${event.mode}', 
+              '${event.date}', 
+              '${event.file}')`}>
+            <i class="fas fa-edit"></i>
           </a>
-          <!-- Botón de Eliminar -->
           <button onclick={`deleteEvent('${event.id}')`} type="button" class="text-red-500 hover:text-red-700">
-            <i class="fas fa-trash-alt"></i> <!-- Icono de eliminar -->
+            <i class="fas fa-trash-alt"></i>
           </button>
         </div>
       </li>
@@ -51,6 +66,35 @@ declare global {
   <!-- Contenedor de paginación -->
   <div id="pagination" class="flex justify-center space-x-2 pb-16"></div>
 </div>
+
+<!-- Modal de Edición -->
+<div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-xl font-bold mb-4">Editar Evento</h2>
+    <label class="hidden" for="eventId">ID del Evento</label>
+    <input class="hidden" id="eventId" type="text" disabled />    
+    <label class="block text-sm font-medium text-gray-700" for="eventName">Nombre</label>
+    <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md"  id="eventName" type="text" />    
+    <label class="block text-sm font-medium text-gray-700" for="eventDescription">Descripción</label>
+    <textarea class="mt-1 block w-full p-2 border border-gray-300 rounded-md"  id="eventDescription"></textarea>    
+    <label class="block text-sm font-medium text-gray-700" for="eventModerator">Moderador</label>
+    <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md"  id="eventModerator" type="text" />    
+    <label class="block text-sm font-medium text-gray-700" for="eventPlace">Lugar</label>
+    <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md"  id="eventPlace" type="text" />    
+    <label class="block text-sm font-medium text-gray-700" for="eventMode">Modo</label>
+    <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md"  id="eventMode" type="text" />    
+    <label class="block text-sm font-medium text-gray-700" for="eventDate">Fecha</label>
+    <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md"  id="eventDate" type="datetime-local" />    
+    <label class="block text-sm font-medium text-gray-700" for="eventFile">Archivo</label>
+    <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md"  id="eventFile" type="file" />
+    <!-- Botones para Guardar y Cerrar -->
+    <div class="mt-4 flex justify-end space-x-2">
+      <button id="saveEventButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Guardar</button>
+      <button id="closeModalButton" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Mensaje de confirmación flotante -->
 <div id="confirmationMessage2" class="fixed top-4 right-4 hidden transition-opacity duration-500 ease-in-out">
   <div id="toast-danger" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
@@ -79,4 +123,69 @@ declare global {
   /// Ejecuta el código para eliminar eventos
   import { deleteEvent } from '../../utils/deleteEvent.ts';
   window.deleteEvent = deleteEvent;
+
+  /// Ejecuta el código para editar eventos
+  import { editEvent } from '../../utils/editEvent.ts';
+  const editModal = document.getElementById("editModal");
+  const eventIdInput = document.getElementById("eventId") as HTMLInputElement;
+  const eventNameInput = document.getElementById("eventName") as HTMLInputElement;
+  const eventDescriptionInput = document.getElementById("eventDescription") as HTMLInputElement;
+  const eventModeratorInput = document.getElementById("eventModerator") as HTMLInputElement;
+  const eventPlaceInput = document.getElementById("eventPlace") as HTMLInputElement;
+  const eventModeInput = document.getElementById("eventMode") as HTMLInputElement;
+  const eventDateInput = document.getElementById("eventDate") as HTMLInputElement;
+  const eventFileInput = document.getElementById("eventFile") as HTMLInputElement;
+
+  // Declaración de openEditModal en window
+  window.openEditModal =  function(
+    eventId, 
+    eventName, 
+    eventDescription, 
+    eventModerator, 
+    eventPlace, 
+    eventMode, 
+    eventDate, 
+    eventFile
+  ) 
+  {
+    if (editModal && eventIdInput && eventNameInput && eventDescriptionInput && eventModeratorInput && eventPlaceInput && eventModeInput && eventDateInput && eventFileInput) {
+      editModal.classList.remove("hidden");
+      // Asignar los valores de los parámetros a los campos del modal
+      eventIdInput.value = eventId;
+      eventNameInput.value = eventName;
+      eventDescriptionInput.value = eventDescription;
+      eventModeratorInput.value = eventModerator;
+      eventPlaceInput.value = eventPlace;
+      eventModeInput.value = eventMode;
+      eventDateInput.value = eventDate;
+      eventFileInput.value = eventFile;
+    } else {
+      console.error("No se encontró uno o más elementos necesarios para abrir el modal de edición.");
+    }
+  };
+
+    // Lógica para cerrar el modal
+    document.getElementById("closeModalButton")?.addEventListener("click", () => {
+      document.getElementById("editModal")?.classList.add("hidden");
+    });
+
+    // Guardar el evento al hacer clic en "Guardar"
+    document.getElementById("saveEventButton")?.addEventListener("click", async () => {
+      const eventData = {
+        id: eventIdInput.value,
+        name: eventNameInput.value,
+        description: eventDescriptionInput.value,
+        moderator: eventModeratorInput.value,
+        place: eventPlaceInput.value,
+        mode: eventModeInput.value,
+        date: eventDateInput.value,
+        image: eventFileInput.files![0],
+      };
+
+      await editEvent(eventData);
+      console.log(eventData)
+      document.getElementById("editModal")?.classList.add("hidden");
+      window.location.reload(); // Recargar la página para ver los cambios
+    });
+
 </script>
