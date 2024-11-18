@@ -19,8 +19,15 @@ export async function createEvent(event: SubmitEvent) {
       const minutos = String(fechaActual.getUTCMinutes()).padStart(2, "0");
       const segundos = String(fechaActual.getUTCSeconds()).padStart(2, "0");
       const form_date = `${año}-${mes}-${dia}T${horas}:${minutos}:${segundos}-05:00`;
-      formData.set("date", form_date);
-  
+      formData.set("date", form_date);    
+      
+      // Imprimir los datos que se van a enviar a la API
+      const formDataObject: { [key: string]: any } = {};
+      formData.forEach((value, key) => {
+          formDataObject[key] = value;
+      });
+      console.log("Datos a enviar a la API:", formDataObject);
+      
       try {
         const response = await fetch(import.meta.env.PUBLIC_API_EVENTS, {
           method: "POST",
