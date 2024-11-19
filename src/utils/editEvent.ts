@@ -13,6 +13,9 @@ export async function editEvent(eventData: {
     try {
       const response = await fetch("https://api-dev.umanizales.edu.co/api/v1/module/totem-um/event", {
         method: "PATCH", 
+        headers: {
+          "Content-type": "application/json",
+        },
         body: JSON.stringify(eventData),
       });
   
